@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2610653280916932606}
   - component: {fileID: 2610653280916932607}
   - component: {fileID: 5940026244449249483}
+  - component: {fileID: 8801919103821459430}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -106,14 +107,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultClientInstantiationType: 0
+  DefaultClientInstantiationType: 2
   RootPath: /Scripts/Generated
   SnapshotDataPath: CubeSnapshotData.cs
   UpdateSystemPath: CubeGhostUpdateSystem.cs
   SerializerPath: CubeGhostSerializer.cs
   Importance: 1
-  PredictingPlayerNetworkId: 
+  PredictingPlayerNetworkId: MovableCubeComponent.PlayerId
   Components:
+  - name: MovableCubeComponent
+    interpolatedClient: 1
+    predictedClient: 1
+    server: 1
+    sendDataTo: 0
+    fields:
+    - name: PlayerId
+      quantization: -1
+      interpolate: 0
+    manualFieldList: 0
+    entityIndex: 0
   - name: Unity.Physics.PhysicsCollider
     interpolatedClient: 1
     predictedClient: 1
@@ -125,7 +137,7 @@ MonoBehaviour:
   - name: Unity.Rendering.PerInstanceCullingTag
     interpolatedClient: 1
     predictedClient: 1
-    server: 1
+    server: 0
     sendDataTo: 0
     fields: []
     manualFieldList: 0
@@ -177,3 +189,16 @@ MonoBehaviour:
     manualFieldList: 0
     entityIndex: 0
   doNotStrip: 0
+--- !u!114 &8801919103821459430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610653280916932604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba1f0f88be4e7b4bb856de35b55ba17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerId: 0

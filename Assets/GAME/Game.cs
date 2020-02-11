@@ -39,6 +39,15 @@ public class Game : ComponentSystem
                 ep.Port = 7979;
                 network.Connect(ep);
             }
+            //if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
+            //{
+            //    // Client worlds automatically connect to localhost
+            //    if (NetworkEndPoint.TryParse("104.40.249.167", 7979, out var ep))
+            //    {
+            //        var c = network.Connect(ep);
+            //    }
+            //}
+
             else if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
             {
                 // Server world automatically listen for connections from any host
@@ -135,10 +144,10 @@ public class GoInGameServerSystem : ComponentSystem
             var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<CubeSnapshotData>();
             var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId].Value;
             var player = EntityManager.Instantiate(prefab);
-            //EntityManager.SetComponentData(player, new MovableCubeComponent { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value});
+            EntityManager.SetComponentData(player, new MovableCubeComponent { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value});
 
-            //PostUpdateCommands.AddBuffer<CubeInput>(player);
-            //PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
+            PostUpdateCommands.AddBuffer<CubeInput>(player);
+            PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
 #endif
 
 

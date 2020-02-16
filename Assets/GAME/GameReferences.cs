@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameReferences : MonoBehaviour
 {
@@ -13,5 +11,5 @@ public class GameReferences : MonoBehaviour
     }
 
     public Plane raycastPlane = new Plane(Vector3.up, Vector3.zero);
-
+    public Transform selection;
 }

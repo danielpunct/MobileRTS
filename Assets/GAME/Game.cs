@@ -146,7 +146,7 @@ public class GoInGameServerSystem : ComponentSystem
             var player = EntityManager.Instantiate(prefab);
             EntityManager.SetComponentData(player, new MovableCubeComponent { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value});
 
-            PostUpdateCommands.AddBuffer<CubeInput>(player);
+            PostUpdateCommands.AddBuffer<PlayerInput>(player);
             PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
 #endif
 

@@ -154,4 +154,9 @@ public class GoInGameServerSystem : ComponentSystem
             PostUpdateCommands.DestroyEntity(reqEnt);
         });
     }
+
+
+
 }
+
+    public struct UnitSelected : IComponentData { }

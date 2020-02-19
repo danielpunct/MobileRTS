@@ -148,6 +148,8 @@ public class GoInGameServerSystem : ComponentSystem
 
             PostUpdateCommands.AddBuffer<PlayerInput>(player);
             PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
+            PostUpdateCommands.AddComponent(player, new MoveTo { move = true, moveSpeed = 40f });
+
 #endif
 
 

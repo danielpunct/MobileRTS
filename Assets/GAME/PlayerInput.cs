@@ -8,6 +8,9 @@ using UnityEngine;
 public struct PlayerInput : ICommandData<PlayerInput>
 {
     public uint tick;
+    public float destinationX;
+    public float destinationZ;
+
     public float selectionX1;
     public float selectionZ1;
     public float selectionX2;
@@ -18,6 +21,9 @@ public struct PlayerInput : ICommandData<PlayerInput>
     public void Deserialize(uint tick, DataStreamReader reader, ref DataStreamReader.Context ctx)
     {
         this.tick = tick;
+
+        destinationX = reader.ReadFloat(ref ctx);
+        destinationZ = reader.ReadFloat(ref ctx);
 
         selectionX1 = reader.ReadFloat(ref ctx);
         selectionZ1 = reader.ReadFloat(ref ctx);
@@ -32,6 +38,8 @@ public struct PlayerInput : ICommandData<PlayerInput>
 
     public void Serialize(DataStreamWriter writer)
     {
+        writer.Write(destinationX);
+        writer.Write(destinationZ);
         writer.Write(selectionX1);
         writer.Write(selectionZ1);
         writer.Write(selectionX2);
@@ -126,6 +134,19 @@ public class SamplePlayerInput : ComponentSystem
                 input.selectionZ1 = startPoint.z;
                 input.selectionX2 = endPoint.x;
                 input.selectionZ2 = endPoint.z;
+            }
+        }
+
+        if(Input.GetMouseButtonUp(1))
+        {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (GameReferences.Instance.raycastPlane.Raycast(ray, out var dist))
+            {
+                var d = ray.GetPoint(dist);
+
+                input.destinationX = d.x;
+                input.destinationZ = d.z;
             }
         }
 

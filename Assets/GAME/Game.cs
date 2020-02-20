@@ -138,27 +138,22 @@ public class GoInGameServerSystem : ComponentSystem
         Entities.WithNone<SendRpcCommandRequestComponent>().ForEach((Entity reqEnt, ref GoInGameRequest req, ref ReceiveRpcCommandRequestComponent reqSrc) =>
         {
             PostUpdateCommands.AddComponent<NetworkStreamInGame>(reqSrc.SourceConnection);
-            UnityEngine.Debug.Log(String.Format("Server setting connection {0} to in game", EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value));
-#if true
+            UnityEngine.Debug.Log(string.Format("Server setting connection {0} to in game", EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value));
+
+
             var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
-            var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<CubeSnapshotData>();
+            var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<PlayerSnapshotData>();
             var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId].Value;
             var player = EntityManager.Instantiate(prefab);
-            EntityManager.SetComponentData(player, new MovableCubeComponent { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value});
+            EntityManager.SetComponentData(player, new Player { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value});
 
             PostUpdateCommands.AddBuffer<PlayerInput>(player);
             PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
-            PostUpdateCommands.AddComponent(player, new MoveTo { move = true, moveSpeed = 40f });
-
-#endif
-
+            PostUpdateCommands.AddComponent(player, new PlayerConfig { Units = 2 });
 
             PostUpdateCommands.DestroyEntity(reqEnt);
         });
     }
-
-
-
 }
 
     public struct UnitSelected : IComponentData { }

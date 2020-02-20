@@ -7,13 +7,13 @@ using Unity.Transforms;
 
 public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
 {
-    private ComponentType componentTypeMovableCubeComponent;
+    private ComponentType componentTypePlayerUnit;
     private ComponentType componentTypePhysicsCollider;
     private ComponentType componentTypeLocalToWorld;
     private ComponentType componentTypeRotation;
     private ComponentType componentTypeTranslation;
     // FIXME: These disable safety since all serializers have an instance of the same type - causing aliasing. Should be fixed in a cleaner way
-    [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<MovableCubeComponent> ghostMovableCubeComponentType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<Rotation> ghostRotationType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<Translation> ghostTranslationType;
 
@@ -28,12 +28,12 @@ public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
     public int SnapshotSize => UnsafeUtility.SizeOf<CubeSnapshotData>();
     public void BeginSerialize(ComponentSystemBase system)
     {
-        componentTypeMovableCubeComponent = ComponentType.ReadWrite<MovableCubeComponent>();
+        componentTypePlayerUnit = ComponentType.ReadWrite<PlayerUnit>();
         componentTypePhysicsCollider = ComponentType.ReadWrite<PhysicsCollider>();
         componentTypeLocalToWorld = ComponentType.ReadWrite<LocalToWorld>();
         componentTypeRotation = ComponentType.ReadWrite<Rotation>();
         componentTypeTranslation = ComponentType.ReadWrite<Translation>();
-        ghostMovableCubeComponentType = system.GetArchetypeChunkComponentType<MovableCubeComponent>(true);
+        ghostPlayerUnitType = system.GetArchetypeChunkComponentType<PlayerUnit>(true);
         ghostRotationType = system.GetArchetypeChunkComponentType<Rotation>(true);
         ghostTranslationType = system.GetArchetypeChunkComponentType<Translation>(true);
     }
@@ -44,7 +44,7 @@ public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
         int matches = 0;
         for (int i = 0; i < components.Length; ++i)
         {
-            if (components[i] == componentTypeMovableCubeComponent)
+            if (components[i] == componentTypePlayerUnit)
                 ++matches;
             if (components[i] == componentTypePhysicsCollider)
                 ++matches;
@@ -61,10 +61,10 @@ public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
     public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref CubeSnapshotData snapshot, GhostSerializerState serializerState)
     {
         snapshot.tick = tick;
-        var chunkDataMovableCubeComponent = chunk.GetNativeArray(ghostMovableCubeComponentType);
+        var chunkDataPlayerUnit = chunk.GetNativeArray(ghostPlayerUnitType);
         var chunkDataRotation = chunk.GetNativeArray(ghostRotationType);
         var chunkDataTranslation = chunk.GetNativeArray(ghostTranslationType);
-        snapshot.SetMovableCubeComponentPlayerId(chunkDataMovableCubeComponent[ent].PlayerId, serializerState);
+        snapshot.SetPlayerUnitPlayerId(chunkDataPlayerUnit[ent].PlayerId, serializerState);
         snapshot.SetRotationValue(chunkDataRotation[ent].Value, serializerState);
         snapshot.SetTranslationValue(chunkDataTranslation[ent].Value, serializerState);
     }

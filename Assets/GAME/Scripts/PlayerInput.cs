@@ -80,9 +80,9 @@ public class SamplePlayerInput : ComponentSystem
         if (localInput == Entity.Null)
         {
             var localPlayerId = GetSingleton<NetworkIdComponent>().Value;
-            Entities.WithNone<PlayerInput>().ForEach((Entity ent, ref MovableCubeComponent cube) =>
+            Entities.WithNone<PlayerInput>().ForEach((Entity ent, ref Player player) =>
             {
-                if (cube.PlayerId == localPlayerId)
+                if (player.PlayerId == localPlayerId)
                 {
                     PostUpdateCommands.AddBuffer<PlayerInput>(ent);
                     PostUpdateCommands.SetComponent(GetSingletonEntity<CommandTargetComponent>(), new CommandTargetComponent { targetEntity = ent });

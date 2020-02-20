@@ -345,7 +345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &708940277
 Transform:
   m_ObjectHideFlags: 0
@@ -485,6 +485,9 @@ MonoBehaviour:
   NamePrefix: MobileRTS
   Ghosts:
   - prefab: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+      type: 3}
+    enabled: 1
+  - prefab: {fileID: 2889285709047827818, guid: 86d05f4a22ad7ef4caf67c512f5c3375,
       type: 3}
     enabled: 1
 --- !u!1 &1352363124

@@ -2,7 +2,7 @@
 using Unity.NetCode;
 
 [GenerateAuthoringComponent]
-public struct MovableCubeComponent : IComponentData
+public struct PlayerUnit : IComponentData
 {
     [GhostDefaultField]
     public int PlayerId;

@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.NetCode;
 using Unity.Networking.Transport;
 using Unity.Burst;
+using Unity.Mathematics;
 
 // Control system updating in the default world
 [UpdateInWorld(UpdateInWorld.TargetWorld.Default)]
@@ -131,6 +132,7 @@ public class GoInGameServerSystem : ComponentSystem
     protected override void OnCreate()
     {
         RequireSingletonForUpdate<EnableMobileRTSGhostSendSystemComponent>();
+
     }
 
     protected override void OnUpdate()
@@ -149,6 +151,7 @@ public class GoInGameServerSystem : ComponentSystem
 
             PostUpdateCommands.AddBuffer<PlayerInput>(player);
             PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
+
             PostUpdateCommands.AddComponent(player, new PlayerConfig { Units = 2 });
 
             PostUpdateCommands.DestroyEntity(reqEnt);

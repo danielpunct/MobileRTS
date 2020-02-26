@@ -14,14 +14,14 @@ public class UnitsSelectionSystem : ComponentSystem
         var deltaTime = Time.DeltaTime;
 
         // for each  input from each client
-        Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer, ref Translation trans, ref PredictedGhostComponent prediction) =>
+        Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer,ref PredictedGhostComponent prediction, ref Player player) =>
         {
             if (!GhostPredictionSystemGroup.ShouldPredict(tick, prediction))
                 return;
 
-            PlayerInput input;
-            inputBuffer.GetDataAtTick(tick, out input);
+            inputBuffer.GetDataAtTick(tick, out PlayerInput input);
 
+            var playerId = player.PlayerId;
             var selectionInput = false;
 
             float minX = math.min(input.selectionX1, input.selectionX2);
@@ -42,14 +42,17 @@ public class UnitsSelectionSystem : ComponentSystem
                 });
 
                 // for each unit of client
-                Entities.ForEach((Entity entity, ref Translation unitTrans) =>
+                Entities.ForEach((Entity entity, ref Translation unitTrans, ref PlayerUnit playerUnit) =>
                 {
-                    if (minX <= unitTrans.Value.x &&
-                       maxX >= unitTrans.Value.y &&
-                       minZ <= unitTrans.Value.z &&
-                       maxZ >= unitTrans.Value.z)
+                    if (playerUnit.PlayerId == playerId)
                     {
-                        PostUpdateCommands.AddComponent(entity, new UnitSelected());
+                        if (minX <= unitTrans.Value.x &&
+                            maxX >= unitTrans.Value.y &&
+                            minZ <= unitTrans.Value.z &&
+                            maxZ >= unitTrans.Value.z)
+                        {
+                            PostUpdateCommands.AddComponent(entity, new UnitSelected());
+                        }
                     }
                 });
             }

@@ -4,6 +4,7 @@ using Unity.NetCode;
 using Unity.Networking.Transport;
 using Unity.Burst;
 using Unity.Mathematics;
+using UnityEngine;
 
 // Control system updating in the default world
 [UpdateInWorld(UpdateInWorld.TargetWorld.Default)]
@@ -31,7 +32,6 @@ public class Game : ComponentSystem
             var network = world.GetExistingSystem<NetworkStreamReceiveSystem>();
 
 
-#if UNITY_EDITOR
 
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
@@ -49,6 +49,7 @@ public class Game : ComponentSystem
             //    }
             //}
 
+#if UNITY_EDITOR
             else if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
             {
                 // Server world automatically listen for connections from any host
@@ -58,14 +59,24 @@ public class Game : ComponentSystem
             }
 #else
 
-            if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
-            {
-                // Client worlds automatically connect to localhost
-                if (NetworkEndPoint.TryParse("104.40.249.167", 7979, out var ep))
-                {
-                    network.Connect(ep);
-                }
-            }
+            //if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
+            //{
+            //    // Client to virtual machine
+            //    if (NetworkEndPoint.TryParse("104.40.249.167", 7979, out var ep))
+            //    {
+            //        network.Connect(ep);
+            //    }
+            //}
+
+            //if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
+            //{
+            //    // Client worlds automatically connect to local network
+            //    if (NetworkEndPoint.TryParse("192.168.1.129", 7979, out var ep))
+            //    {
+            //        network.Connect(ep);
+            //    }
+            //}
+            //
 #endif
         }
     }
@@ -117,6 +128,7 @@ public class GoInGameClientSystem : ComponentSystem
     {
         Entities.WithNone<NetworkStreamInGame>().ForEach((Entity ent, ref NetworkIdComponent id) =>
         {
+            Debug.Log("client went in game");
             PostUpdateCommands.AddComponent<NetworkStreamInGame>(ent);
             var req = PostUpdateCommands.CreateEntity();
             PostUpdateCommands.AddComponent<GoInGameRequest>(req);

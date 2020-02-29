@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2610653280916932607}
   - component: {fileID: 5940026244449249483}
   - component: {fileID: 8801919103821459430}
-  - component: {fileID: 3681176974058447918}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -203,22 +202,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerId: 0
---- !u!95 &3681176974058447918
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2610653280916932604}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9ace07c9024193c41842fca708a189fd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

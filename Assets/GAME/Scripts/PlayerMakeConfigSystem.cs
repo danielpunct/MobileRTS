@@ -22,10 +22,14 @@ public class PlayerMakeConfigSystem : ComponentSystem
             for (int i = 0; i < config.Units; i++)
             {
                 var unit = EntityManager.Instantiate(prefab);
+                var spawnOffset = new float3((player.PlayerId == 1 ? ServerReferences.Instance.spawnA : ServerReferences.Instance.spawnB).transform.position);
+                spawnOffset.y = 0;
+
                 PostUpdateCommands.SetComponent(unit, new PlayerUnit { PlayerId = player.PlayerId });
                 PostUpdateCommands.AddComponent(unit, new MoveTo
                 {
-                    position = new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
+
+                    position = spawnOffset +  new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
                     moveSpeed = 5f,
                     move = true
                 });

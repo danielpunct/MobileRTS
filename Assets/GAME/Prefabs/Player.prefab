@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultClientInstantiationType: 0
-  RootPath: /Scripts/Generated
+  RootPath: /GAME/Scripts/Generated
   SnapshotDataPath: PlayerSnapshotData.cs
   UpdateSystemPath: PlayerGhostUpdateSystem.cs
   SerializerPath: PlayerGhostSerializer.cs

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultClientInstantiationType: 2
-  RootPath: /Scripts/Generated
+  RootPath: /GAME/Scripts/Generated
   SnapshotDataPath: CubeSnapshotData.cs
   UpdateSystemPath: CubeGhostUpdateSystem.cs
   SerializerPath: CubeGhostSerializer.cs

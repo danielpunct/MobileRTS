@@ -28,14 +28,6 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
             return 1;
         return -1;
     }
-    public int FindSerializer(EntityArchetype arch)
-    {
-        if (m_CubeGhostSerializer.CanSerialize(arch))
-            return 0;
-        if (m_PlayerGhostSerializer.CanSerialize(arch))
-            return 1;
-        throw new ArgumentException("Invalid serializer type");
-    }
 
     public void BeginSerialize(ComponentSystemBase system)
     {
@@ -56,19 +48,6 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
         throw new ArgumentException("Invalid serializer type");
     }
 
-    public bool WantsPredictionDelta(int serializer)
-    {
-        switch (serializer)
-        {
-            case 0:
-                return m_CubeGhostSerializer.WantsPredictionDelta;
-            case 1:
-                return m_PlayerGhostSerializer.WantsPredictionDelta;
-        }
-
-        throw new ArgumentException("Invalid serializer type");
-    }
-
     public int GetSnapshotSize(int serializer)
     {
         switch (serializer)
@@ -82,17 +61,17 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
         throw new ArgumentException("Invalid serializer type");
     }
 
-    public int Serialize(SerializeData data)
+    public int Serialize(ref DataStreamWriter dataStream, SerializeData data)
     {
         switch (data.ghostType)
         {
             case 0:
             {
-                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<CubeGhostSerializer, CubeSnapshotData>(m_CubeGhostSerializer, data);
+                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<CubeGhostSerializer, CubeSnapshotData>(m_CubeGhostSerializer, ref dataStream, data);
             }
             case 1:
             {
-                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<PlayerGhostSerializer, PlayerSnapshotData>(m_PlayerGhostSerializer, data);
+                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<PlayerGhostSerializer, PlayerSnapshotData>(m_PlayerGhostSerializer, ref dataStream, data);
             }
             default:
                 throw new ArgumentException("Invalid serializer type");

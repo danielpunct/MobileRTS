@@ -15,25 +15,11 @@ public struct PlayerGhostSerializer : IGhostSerializer<PlayerSnapshotData>
         return 1;
     }
 
-    public bool WantsPredictionDelta => true;
-
     public int SnapshotSize => UnsafeUtility.SizeOf<PlayerSnapshotData>();
     public void BeginSerialize(ComponentSystemBase system)
     {
         componentTypePlayer = ComponentType.ReadWrite<Player>();
         ghostPlayerType = system.GetArchetypeChunkComponentType<Player>(true);
-    }
-
-    public bool CanSerialize(EntityArchetype arch)
-    {
-        var components = arch.GetComponentTypes();
-        int matches = 0;
-        for (int i = 0; i < components.Length; ++i)
-        {
-            if (components[i] == componentTypePlayer)
-                ++matches;
-        }
-        return (matches == 1);
     }
 
     public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref PlayerSnapshotData snapshot, GhostSerializerState serializerState)

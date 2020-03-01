@@ -14,7 +14,7 @@ public class UnitsSelectionSystem : ComponentSystem
         var deltaTime = Time.DeltaTime;
 
         // for each  input from each client
-        Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer,ref PredictedGhostComponent prediction, ref Player player) =>
+        Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer, ref PredictedGhostComponent prediction, ref Player player) =>
         {
             if (!GhostPredictionSystemGroup.ShouldPredict(tick, prediction))
                 return;
@@ -34,7 +34,8 @@ public class UnitsSelectionSystem : ComponentSystem
                 selectionInput = true;
             }
 
-            if (selectionInput) { 
+            if (selectionInput)
+            {
                 // deselect all units // not at all optimal
                 Entities.WithAll<UnitSelected>().ForEach((Entity entity) =>
                 {
@@ -57,7 +58,7 @@ public class UnitsSelectionSystem : ComponentSystem
                 });
             }
             // if destination input
-            else if(input.destinationX != 0 || input.destinationZ!= 0)
+            else if (input.destinationX != 0 || input.destinationZ != 0)
             {
                 Entities.WithAll<UnitSelected>().ForEach((Entity entity, ref MoveTo moveTo) =>
                 {

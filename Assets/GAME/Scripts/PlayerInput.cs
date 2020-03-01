@@ -16,40 +16,42 @@ public struct PlayerInput : ICommandData<PlayerInput>
     public float selectionX2;
     public float selectionZ2;
 
-    public uint Tick => tick; 
+    public uint Tick => tick;
 
-    public void Deserialize(uint tick, DataStreamReader reader, ref DataStreamReader.Context ctx)
+
+    public void Deserialize(uint tick, ref DataStreamReader reader, PlayerInput baseline, NetworkCompressionModel compressionModel)
+    {
+        Deserialize(tick, ref reader);
+    }
+
+    public void Deserialize(uint tick, ref DataStreamReader reader)
     {
         this.tick = tick;
 
-        destinationX = reader.ReadFloat(ref ctx);
-        destinationZ = reader.ReadFloat(ref ctx);
+        destinationX = reader.ReadFloat();
+        destinationZ = reader.ReadFloat();
 
-        selectionX1 = reader.ReadFloat(ref ctx);
-        selectionZ1 = reader.ReadFloat(ref ctx);
-        selectionX2 = reader.ReadFloat(ref ctx);
-        selectionZ2 = reader.ReadFloat(ref ctx);
+        selectionX1 = reader.ReadFloat();
+        selectionZ1 = reader.ReadFloat();
+        selectionX2 = reader.ReadFloat();
+        selectionZ2 = reader.ReadFloat();
     }
 
-    public void Deserialize(uint tick, DataStreamReader reader, ref DataStreamReader.Context ctx, PlayerInput baseline, NetworkCompressionModel compressionModel)
+    public void Serialize(ref DataStreamWriter writer, PlayerInput baseline, NetworkCompressionModel compressionModel)
     {
-        Deserialize(tick, reader, ref ctx);
+        Serialize(ref writer);
     }
 
-    public void Serialize(DataStreamWriter writer)
+    public void Serialize(ref DataStreamWriter writer)
     {
-        writer.Write(destinationX);
-        writer.Write(destinationZ);
-        writer.Write(selectionX1);
-        writer.Write(selectionZ1);
-        writer.Write(selectionX2);
-        writer.Write(selectionZ2);
+        writer.WriteFloat(destinationX);
+        writer.WriteFloat(destinationZ);
+        writer.WriteFloat(selectionX1);
+        writer.WriteFloat(selectionZ1);
+        writer.WriteFloat(selectionX2);
+        writer.WriteFloat(selectionZ2);
     }
 
-    public void Serialize(DataStreamWriter writer, PlayerInput baseline, NetworkCompressionModel compressionModel)
-    {
-        Serialize(writer);
-    }
 
     public class NetCubeSendCommandSystem : CommandSendSystem<PlayerInput>
     {
@@ -137,7 +139,7 @@ public class SamplePlayerInput : ComponentSystem
             }
         }
 
-        if(Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

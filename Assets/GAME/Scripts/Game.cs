@@ -25,7 +25,7 @@ public class Game : ComponentSystem
 
     protected override void OnUpdate()
     {
-         // Destroy singleton to prevent system from running again
+        // Destroy singleton to prevent system from running again
         EntityManager.DestroyEntity(GetSingletonEntity<InitGameComponent>());
         foreach (var world in World.AllWorlds)
         {
@@ -65,14 +65,14 @@ public struct GoInGameRequest : IRpcCommand
 {
     // Unused integer for demonstration
     public int value;
-    public void Deserialize(DataStreamReader reader, ref DataStreamReader.Context ctx)
+    public void Deserialize(ref DataStreamReader reader)
     {
-        value = reader.ReadInt(ref ctx);
+        value = reader.ReadInt();
     }
 
-    public void Serialize(DataStreamWriter writer)
+    public void Serialize(ref DataStreamWriter writer)
     {
-        writer.Write(value);
+        writer.WriteInt(value);
     }
     [BurstCompile]
     private static void InvokeExecute(ref RpcExecutor.Parameters parameters)
@@ -136,10 +136,10 @@ public class GoInGameServerSystem : ComponentSystem
             var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<PlayerSnapshotData>();
             var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId].Value;
             var player = EntityManager.Instantiate(prefab);
-            EntityManager.SetComponentData(player, new Player { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value});
+            EntityManager.SetComponentData(player, new Player { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value });
 
             PostUpdateCommands.AddBuffer<PlayerInput>(player);
-            PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent {targetEntity = player});
+            PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent { targetEntity = player });
 
             PostUpdateCommands.AddComponent(player, new PlayerConfig { Units = 2 });
 
@@ -148,4 +148,4 @@ public class GoInGameServerSystem : ComponentSystem
     }
 }
 
-    public struct UnitSelected : IComponentData { }
+public struct UnitSelected : IComponentData { }

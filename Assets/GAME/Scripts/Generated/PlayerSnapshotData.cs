@@ -32,7 +32,7 @@ public struct PlayerSnapshotData : ISnapshotData<PlayerSnapshotData>
         PlayerPlayerId = predictor.PredictInt(PlayerPlayerId, baseline1.PlayerPlayerId, baseline2.PlayerPlayerId);
     }
 
-    public void Serialize(int networkId, ref PlayerSnapshotData baseline, DataStreamWriter writer, NetworkCompressionModel compressionModel)
+    public void Serialize(int networkId, ref PlayerSnapshotData baseline, ref DataStreamWriter writer, NetworkCompressionModel compressionModel)
     {
         changeMask0 = (PlayerPlayerId != baseline.PlayerPlayerId) ? 1u : 0;
         writer.WritePackedUIntDelta(changeMask0, baseline.changeMask0, compressionModel);
@@ -40,13 +40,13 @@ public struct PlayerSnapshotData : ISnapshotData<PlayerSnapshotData>
             writer.WritePackedIntDelta(PlayerPlayerId, baseline.PlayerPlayerId, compressionModel);
     }
 
-    public void Deserialize(uint tick, ref PlayerSnapshotData baseline, DataStreamReader reader, ref DataStreamReader.Context ctx,
+    public void Deserialize(uint tick, ref PlayerSnapshotData baseline, ref DataStreamReader reader,
         NetworkCompressionModel compressionModel)
     {
         this.tick = tick;
-        changeMask0 = reader.ReadPackedUIntDelta(ref ctx, baseline.changeMask0, compressionModel);
+        changeMask0 = reader.ReadPackedUIntDelta(baseline.changeMask0, compressionModel);
         if ((changeMask0 & (1 << 0)) != 0)
-            PlayerPlayerId = reader.ReadPackedIntDelta(ref ctx, baseline.PlayerPlayerId, compressionModel);
+            PlayerPlayerId = reader.ReadPackedIntDelta(baseline.PlayerPlayerId, compressionModel);
         else
             PlayerPlayerId = baseline.PlayerPlayerId;
     }

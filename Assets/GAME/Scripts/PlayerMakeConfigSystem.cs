@@ -25,7 +25,7 @@ public class PlayerMakeConfigSystem : ComponentSystem
                 PostUpdateCommands.SetComponent(unit, new PlayerUnit { PlayerId = player.PlayerId });
                 PostUpdateCommands.AddComponent(unit, new MoveTo
                 {
-                    position = new float3(random.NextFloat(-10f, 10f),0,random.NextFloat(-10f, 10f)),
+                    position = new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
                     moveSpeed = 5f,
                     move = true
                 });

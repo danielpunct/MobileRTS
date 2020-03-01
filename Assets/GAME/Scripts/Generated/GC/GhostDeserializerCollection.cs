@@ -37,33 +37,32 @@ public struct MobileRTSGhostDeserializerCollection : IGhostDeserializerCollectio
         m_PlayerSnapshotDataFromEntity = system.GetBufferFromEntity<PlayerSnapshotData>();
     }
     public bool Deserialize(int serializer, Entity entity, uint snapshot, uint baseline, uint baseline2, uint baseline3,
-        DataStreamReader reader,
-        ref DataStreamReader.Context ctx, NetworkCompressionModel compressionModel)
+        ref DataStreamReader reader, NetworkCompressionModel compressionModel)
     {
         switch (serializer)
         {
             case 0:
                 return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_CubeSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
-                baseline3, reader, ref ctx, compressionModel);
+                baseline3, ref reader, compressionModel);
             case 1:
                 return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_PlayerSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
-                baseline3, reader, ref ctx, compressionModel);
+                baseline3, ref reader, compressionModel);
             default:
                 throw new ArgumentException("Invalid serializer type");
         }
     }
-    public void Spawn(int serializer, int ghostId, uint snapshot, DataStreamReader reader,
-        ref DataStreamReader.Context ctx, NetworkCompressionModel compressionModel)
+    public void Spawn(int serializer, int ghostId, uint snapshot, ref DataStreamReader reader,
+        NetworkCompressionModel compressionModel)
     {
         switch (serializer)
         {
             case 0:
                 m_CubeSnapshotDataNewGhostIds.Add(ghostId);
-                m_CubeSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<CubeSnapshotData>(snapshot, reader, ref ctx, compressionModel));
+                m_CubeSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<CubeSnapshotData>(snapshot, ref reader, compressionModel));
                 break;
             case 1:
                 m_PlayerSnapshotDataNewGhostIds.Add(ghostId);
-                m_PlayerSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<PlayerSnapshotData>(snapshot, reader, ref ctx, compressionModel));
+                m_PlayerSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<PlayerSnapshotData>(snapshot, ref reader, compressionModel));
                 break;
             default:
                 throw new ArgumentException("Invalid serializer type");

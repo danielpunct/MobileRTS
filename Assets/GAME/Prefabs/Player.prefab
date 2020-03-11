@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabId: 86d05f4a22ad7ef4caf67c512f5c3375
   DefaultClientInstantiationType: 0
   RootPath: /GAME/Scripts/Generated
   SnapshotDataPath: PlayerSnapshotData.cs

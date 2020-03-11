@@ -22,6 +22,8 @@ public struct BArcherGhostSerializer : IGhostSerializer<BArcherSnapshotData>
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkBufferType<LinkedEntityGroup> ghostLinkedEntityGroupType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Rotation> ghostChild0RotationType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Translation> ghostChild0TranslationType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Rotation> ghostChild1RotationType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Translation> ghostChild1TranslationType;
 
 
     public int CalculateImportance(ArchetypeChunk chunk)
@@ -45,6 +47,8 @@ public struct BArcherGhostSerializer : IGhostSerializer<BArcherSnapshotData>
         ghostLinkedEntityGroupType = system.GetArchetypeChunkBufferType<LinkedEntityGroup>(true);
         ghostChild0RotationType = system.GetComponentDataFromEntity<Rotation>(true);
         ghostChild0TranslationType = system.GetComponentDataFromEntity<Translation>(true);
+        ghostChild1RotationType = system.GetComponentDataFromEntity<Rotation>(true);
+        ghostChild1TranslationType = system.GetComponentDataFromEntity<Translation>(true);
     }
 
     public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref BArcherSnapshotData snapshot, GhostSerializerState serializerState)
@@ -59,5 +63,7 @@ public struct BArcherGhostSerializer : IGhostSerializer<BArcherSnapshotData>
         snapshot.SetTranslationValue(chunkDataTranslation[ent].Value, serializerState);
         snapshot.SetChild0RotationValue(ghostChild0RotationType[chunkDataLinkedEntityGroup[ent][1].Value].Value, serializerState);
         snapshot.SetChild0TranslationValue(ghostChild0TranslationType[chunkDataLinkedEntityGroup[ent][1].Value].Value, serializerState);
+        snapshot.SetChild1RotationValue(ghostChild1RotationType[chunkDataLinkedEntityGroup[ent][2].Value].Value, serializerState);
+        snapshot.SetChild1TranslationValue(ghostChild1TranslationType[chunkDataLinkedEntityGroup[ent][2].Value].Value, serializerState);
     }
 }

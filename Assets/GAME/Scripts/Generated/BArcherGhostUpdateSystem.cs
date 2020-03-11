@@ -65,15 +65,21 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 var ghostTranslation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value];
                 var ghostChild0Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
                 var ghostChild0Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
+                var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
+                var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostRotation.Value = snapshotData.GetRotationValue(deserializerState);
                 ghostTranslation.Value = snapshotData.GetTranslationValue(deserializerState);
                 ghostChild0Rotation.Value = snapshotData.GetChild0RotationValue(deserializerState);
                 ghostChild0Translation.Value = snapshotData.GetChild0TranslationValue(deserializerState);
+                ghostChild1Rotation.Value = snapshotData.GetChild1RotationValue(deserializerState);
+                ghostChild1Translation.Value = snapshotData.GetChild1TranslationValue(deserializerState);
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostRotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostTranslation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Translation;
+                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Rotation;
+                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Translation;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
             }
         }
@@ -146,15 +152,21 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 var ghostTranslation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value];
                 var ghostChild0Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
                 var ghostChild0Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
+                var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
+                var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostRotation.Value = snapshotData.GetRotationValue(deserializerState);
                 ghostTranslation.Value = snapshotData.GetTranslationValue(deserializerState);
                 ghostChild0Rotation.Value = snapshotData.GetChild0RotationValue(deserializerState);
                 ghostChild0Translation.Value = snapshotData.GetChild0TranslationValue(deserializerState);
+                ghostChild1Rotation.Value = snapshotData.GetChild1RotationValue(deserializerState);
+                ghostChild1Translation.Value = snapshotData.GetChild1TranslationValue(deserializerState);
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostRotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostTranslation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Translation;
+                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Rotation;
+                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Translation;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
             }
         }

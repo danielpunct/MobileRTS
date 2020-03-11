@@ -11,28 +11,32 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
     {
         var arr = new string[]
         {
-            "CubeGhostSerializer",
             "PlayerGhostSerializer",
+            "AArcherGhostSerializer",
+            "BArcherGhostSerializer",
         };
         return arr;
     }
 
-    public int Length => 2;
+    public int Length => 3;
 #endif
     public static int FindGhostType<T>()
         where T : struct, ISnapshotData<T>
     {
-        if (typeof(T) == typeof(CubeSnapshotData))
-            return 0;
         if (typeof(T) == typeof(PlayerSnapshotData))
+            return 0;
+        if (typeof(T) == typeof(AArcherSnapshotData))
             return 1;
+        if (typeof(T) == typeof(BArcherSnapshotData))
+            return 2;
         return -1;
     }
 
     public void BeginSerialize(ComponentSystemBase system)
     {
-        m_CubeGhostSerializer.BeginSerialize(system);
         m_PlayerGhostSerializer.BeginSerialize(system);
+        m_AArcherGhostSerializer.BeginSerialize(system);
+        m_BArcherGhostSerializer.BeginSerialize(system);
     }
 
     public int CalculateImportance(int serializer, ArchetypeChunk chunk)
@@ -40,9 +44,11 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
         switch (serializer)
         {
             case 0:
-                return m_CubeGhostSerializer.CalculateImportance(chunk);
-            case 1:
                 return m_PlayerGhostSerializer.CalculateImportance(chunk);
+            case 1:
+                return m_AArcherGhostSerializer.CalculateImportance(chunk);
+            case 2:
+                return m_BArcherGhostSerializer.CalculateImportance(chunk);
         }
 
         throw new ArgumentException("Invalid serializer type");
@@ -53,9 +59,11 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
         switch (serializer)
         {
             case 0:
-                return m_CubeGhostSerializer.SnapshotSize;
-            case 1:
                 return m_PlayerGhostSerializer.SnapshotSize;
+            case 1:
+                return m_AArcherGhostSerializer.SnapshotSize;
+            case 2:
+                return m_BArcherGhostSerializer.SnapshotSize;
         }
 
         throw new ArgumentException("Invalid serializer type");
@@ -67,18 +75,23 @@ public struct MobileRTSGhostSerializerCollection : IGhostSerializerCollection
         {
             case 0:
             {
-                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<CubeGhostSerializer, CubeSnapshotData>(m_CubeGhostSerializer, ref dataStream, data);
+                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<PlayerGhostSerializer, PlayerSnapshotData>(m_PlayerGhostSerializer, ref dataStream, data);
             }
             case 1:
             {
-                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<PlayerGhostSerializer, PlayerSnapshotData>(m_PlayerGhostSerializer, ref dataStream, data);
+                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<AArcherGhostSerializer, AArcherSnapshotData>(m_AArcherGhostSerializer, ref dataStream, data);
+            }
+            case 2:
+            {
+                return GhostSendSystem<MobileRTSGhostSerializerCollection>.InvokeSerialize<BArcherGhostSerializer, BArcherSnapshotData>(m_BArcherGhostSerializer, ref dataStream, data);
             }
             default:
                 throw new ArgumentException("Invalid serializer type");
         }
     }
-    private CubeGhostSerializer m_CubeGhostSerializer;
     private PlayerGhostSerializer m_PlayerGhostSerializer;
+    private AArcherGhostSerializer m_AArcherGhostSerializer;
+    private BArcherGhostSerializer m_BArcherGhostSerializer;
 }
 
 public struct EnableMobileRTSGhostSendSystemComponent : IComponentData

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5940026244449249483}
   - component: {fileID: 8801919103821459430}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: AArcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 331f66dd67156f149a88c4d74a8d344f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,12 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabId: 06544837da7191f4d81c1d7b1f4a91bf
+  prefabId: 7ebfd55d8d2424b40967ce07c9632592
   DefaultClientInstantiationType: 2
   RootPath: /GAME/Scripts/Generated
-  SnapshotDataPath: CubeSnapshotData.cs
-  UpdateSystemPath: CubeGhostUpdateSystem.cs
-  SerializerPath: CubeGhostSerializer.cs
+  SnapshotDataPath: AArcherSnapshotData.cs
+  UpdateSystemPath: AArcherGhostUpdateSystem.cs
+  SerializerPath: AArcherGhostSerializer.cs
   Importance: 1
   PredictingPlayerNetworkId: PlayerUnit.PlayerId
   Components:
@@ -155,6 +155,14 @@ MonoBehaviour:
     interpolatedClient: 1
     predictedClient: 1
     server: 0
+    sendDataTo: 0
+    fields: []
+    manualFieldList: 0
+    entityIndex: 0
+  - name: Unity.Transforms.CompositeScale
+    interpolatedClient: 1
+    predictedClient: 1
+    server: 1
     sendDataTo: 0
     fields: []
     manualFieldList: 0

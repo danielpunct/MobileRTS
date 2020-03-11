@@ -132,10 +132,12 @@ public class SamplePlayerInput : ComponentSystem
             {
                 endPoint = ray.GetPoint(dist);
 
+
                 input.selectionX1 = startPoint.x;
                 input.selectionZ1 = startPoint.z;
                 input.selectionX2 = endPoint.x;
                 input.selectionZ2 = endPoint.z;
+
             }
         }
 

@@ -11,30 +11,36 @@ public struct MobileRTSGhostDeserializerCollection : IGhostDeserializerCollectio
     {
         var arr = new string[]
         {
-            "CubeGhostSerializer",
             "PlayerGhostSerializer",
+            "AArcherGhostSerializer",
+            "BArcherGhostSerializer",
         };
         return arr;
     }
 
-    public int Length => 2;
+    public int Length => 3;
 #endif
     public void Initialize(World world)
     {
-        var curCubeGhostSpawnSystem = world.GetOrCreateSystem<CubeGhostSpawnSystem>();
-        m_CubeSnapshotDataNewGhostIds = curCubeGhostSpawnSystem.NewGhostIds;
-        m_CubeSnapshotDataNewGhosts = curCubeGhostSpawnSystem.NewGhosts;
-        curCubeGhostSpawnSystem.GhostType = 0;
         var curPlayerGhostSpawnSystem = world.GetOrCreateSystem<PlayerGhostSpawnSystem>();
         m_PlayerSnapshotDataNewGhostIds = curPlayerGhostSpawnSystem.NewGhostIds;
         m_PlayerSnapshotDataNewGhosts = curPlayerGhostSpawnSystem.NewGhosts;
-        curPlayerGhostSpawnSystem.GhostType = 1;
+        curPlayerGhostSpawnSystem.GhostType = 0;
+        var curAArcherGhostSpawnSystem = world.GetOrCreateSystem<AArcherGhostSpawnSystem>();
+        m_AArcherSnapshotDataNewGhostIds = curAArcherGhostSpawnSystem.NewGhostIds;
+        m_AArcherSnapshotDataNewGhosts = curAArcherGhostSpawnSystem.NewGhosts;
+        curAArcherGhostSpawnSystem.GhostType = 1;
+        var curBArcherGhostSpawnSystem = world.GetOrCreateSystem<BArcherGhostSpawnSystem>();
+        m_BArcherSnapshotDataNewGhostIds = curBArcherGhostSpawnSystem.NewGhostIds;
+        m_BArcherSnapshotDataNewGhosts = curBArcherGhostSpawnSystem.NewGhosts;
+        curBArcherGhostSpawnSystem.GhostType = 2;
     }
 
     public void BeginDeserialize(JobComponentSystem system)
     {
-        m_CubeSnapshotDataFromEntity = system.GetBufferFromEntity<CubeSnapshotData>();
         m_PlayerSnapshotDataFromEntity = system.GetBufferFromEntity<PlayerSnapshotData>();
+        m_AArcherSnapshotDataFromEntity = system.GetBufferFromEntity<AArcherSnapshotData>();
+        m_BArcherSnapshotDataFromEntity = system.GetBufferFromEntity<BArcherSnapshotData>();
     }
     public bool Deserialize(int serializer, Entity entity, uint snapshot, uint baseline, uint baseline2, uint baseline3,
         ref DataStreamReader reader, NetworkCompressionModel compressionModel)
@@ -42,10 +48,13 @@ public struct MobileRTSGhostDeserializerCollection : IGhostDeserializerCollectio
         switch (serializer)
         {
             case 0:
-                return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_CubeSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
+                return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_PlayerSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
                 baseline3, ref reader, compressionModel);
             case 1:
-                return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_PlayerSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
+                return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_AArcherSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
+                baseline3, ref reader, compressionModel);
+            case 2:
+                return GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeDeserialize(m_BArcherSnapshotDataFromEntity, entity, snapshot, baseline, baseline2,
                 baseline3, ref reader, compressionModel);
             default:
                 throw new ArgumentException("Invalid serializer type");
@@ -57,24 +66,31 @@ public struct MobileRTSGhostDeserializerCollection : IGhostDeserializerCollectio
         switch (serializer)
         {
             case 0:
-                m_CubeSnapshotDataNewGhostIds.Add(ghostId);
-                m_CubeSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<CubeSnapshotData>(snapshot, ref reader, compressionModel));
-                break;
-            case 1:
                 m_PlayerSnapshotDataNewGhostIds.Add(ghostId);
                 m_PlayerSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<PlayerSnapshotData>(snapshot, ref reader, compressionModel));
+                break;
+            case 1:
+                m_AArcherSnapshotDataNewGhostIds.Add(ghostId);
+                m_AArcherSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<AArcherSnapshotData>(snapshot, ref reader, compressionModel));
+                break;
+            case 2:
+                m_BArcherSnapshotDataNewGhostIds.Add(ghostId);
+                m_BArcherSnapshotDataNewGhosts.Add(GhostReceiveSystem<MobileRTSGhostDeserializerCollection>.InvokeSpawn<BArcherSnapshotData>(snapshot, ref reader, compressionModel));
                 break;
             default:
                 throw new ArgumentException("Invalid serializer type");
         }
     }
 
-    private BufferFromEntity<CubeSnapshotData> m_CubeSnapshotDataFromEntity;
-    private NativeList<int> m_CubeSnapshotDataNewGhostIds;
-    private NativeList<CubeSnapshotData> m_CubeSnapshotDataNewGhosts;
     private BufferFromEntity<PlayerSnapshotData> m_PlayerSnapshotDataFromEntity;
     private NativeList<int> m_PlayerSnapshotDataNewGhostIds;
     private NativeList<PlayerSnapshotData> m_PlayerSnapshotDataNewGhosts;
+    private BufferFromEntity<AArcherSnapshotData> m_AArcherSnapshotDataFromEntity;
+    private NativeList<int> m_AArcherSnapshotDataNewGhostIds;
+    private NativeList<AArcherSnapshotData> m_AArcherSnapshotDataNewGhosts;
+    private BufferFromEntity<BArcherSnapshotData> m_BArcherSnapshotDataFromEntity;
+    private NativeList<int> m_BArcherSnapshotDataNewGhostIds;
+    private NativeList<BArcherSnapshotData> m_BArcherSnapshotDataNewGhosts;
 }
 public struct EnableMobileRTSGhostReceiveSystemComponent : IComponentData
 {}

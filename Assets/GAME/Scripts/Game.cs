@@ -30,7 +30,6 @@ public class Game : ComponentSystem
         foreach (var world in World.AllWorlds)
         {
             var network = world.GetExistingSystem<NetworkStreamReceiveSystem>();
-#if UNITY_EDITOR
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
                 // Client worlds automatically connect to localhost
@@ -38,6 +37,7 @@ public class Game : ComponentSystem
                 ep.Port = 7979;
                 network.Connect(ep);
             }
+#if UNITY_EDITOR
             else if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
             {
                 // Server world automatically listen for connections from any host
@@ -46,7 +46,7 @@ public class Game : ComponentSystem
                 network.Listen(ep);
             }
 #else
-             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
+            else if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
                 // Client worlds automatically connect to local network
                 if (NetworkEndPoint.TryParse("192.168.1.129", 7979, out var ep))

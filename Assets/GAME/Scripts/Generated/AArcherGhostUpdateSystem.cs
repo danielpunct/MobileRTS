@@ -9,7 +9,7 @@ using Unity.Entities;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(GhostUpdateSystemGroup))]
-public class CubeGhostUpdateSystem : JobComponentSystem
+public class AArcherGhostUpdateSystem : JobComponentSystem
 {
     [BurstCompile]
     struct UpdateInterpolatedJob : IJobChunk
@@ -22,7 +22,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
         public int ThreadIndex;
 #pragma warning restore 649
 #endif
-        [ReadOnly] public ArchetypeChunkBufferType<CubeSnapshotData> ghostSnapshotDataType;
+        [ReadOnly] public ArchetypeChunkBufferType<AArcherSnapshotData> ghostSnapshotDataType;
         [ReadOnly] public ArchetypeChunkEntityType ghostEntityType;
         public ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
         public ArchetypeChunkComponentType<Rotation> ghostRotationType;
@@ -57,7 +57,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
                         minMaxSnapshotTick[minMaxOffset + 1] = latestTick;
                 }
 #endif
-                CubeSnapshotData snapshotData;
+                AArcherSnapshotData snapshotData;
                 snapshot.GetDataAtTick(targetTick, targetTickFraction, out snapshotData);
 
                 var ghostPlayerUnit = ghostPlayerUnitArray[entityIndex];
@@ -84,7 +84,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
         public int ThreadIndex;
 #pragma warning restore 649
         [NativeDisableParallelForRestriction] public NativeArray<uint> minPredictedTick;
-        [ReadOnly] public ArchetypeChunkBufferType<CubeSnapshotData> ghostSnapshotDataType;
+        [ReadOnly] public ArchetypeChunkBufferType<AArcherSnapshotData> ghostSnapshotDataType;
         [ReadOnly] public ArchetypeChunkEntityType ghostEntityType;
         public ArchetypeChunkComponentType<PredictedGhostComponent> predictedGhostComponentType;
         public ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
@@ -120,7 +120,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
                         minMaxSnapshotTick[minMaxOffset + 1] = latestTick;
                 }
 #endif
-                CubeSnapshotData snapshotData;
+                AArcherSnapshotData snapshotData;
                 snapshot.GetDataAtTick(targetTick, out snapshotData);
 
                 var predictedData = predictedGhostComponentArray[entityIndex];
@@ -169,7 +169,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
         m_interpolatedQuery = GetEntityQuery(new EntityQueryDesc
         {
             All = new []{
-                ComponentType.ReadWrite<CubeSnapshotData>(),
+                ComponentType.ReadWrite<AArcherSnapshotData>(),
                 ComponentType.ReadOnly<GhostComponent>(),
                 ComponentType.ReadWrite<PlayerUnit>(),
                 ComponentType.ReadWrite<Rotation>(),
@@ -180,7 +180,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
         m_predictedQuery = GetEntityQuery(new EntityQueryDesc
         {
             All = new []{
-                ComponentType.ReadOnly<CubeSnapshotData>(),
+                ComponentType.ReadOnly<AArcherSnapshotData>(),
                 ComponentType.ReadOnly<GhostComponent>(),
                 ComponentType.ReadOnly<PredictedGhostComponent>(),
                 ComponentType.ReadWrite<PlayerUnit>(),
@@ -188,7 +188,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
                 ComponentType.ReadWrite<Translation>(),
             }
         });
-        RequireForUpdate(GetEntityQuery(ComponentType.ReadWrite<CubeSnapshotData>(),
+        RequireForUpdate(GetEntityQuery(ComponentType.ReadWrite<AArcherSnapshotData>(),
             ComponentType.ReadOnly<GhostComponent>()));
     }
     protected override JobHandle OnUpdate(JobHandle inputDeps)
@@ -202,7 +202,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
                 minMaxSnapshotTick = m_ghostMinMaxSnapshotTick,
 #endif
                 minPredictedTick = m_GhostPredictionSystemGroup.OldestPredictedTick,
-                ghostSnapshotDataType = GetArchetypeChunkBufferType<CubeSnapshotData>(true),
+                ghostSnapshotDataType = GetArchetypeChunkBufferType<AArcherSnapshotData>(true),
                 ghostEntityType = GetArchetypeChunkEntityType(),
                 predictedGhostComponentType = GetArchetypeChunkComponentType<PredictedGhostComponent>(),
                 ghostPlayerUnitType = GetArchetypeChunkComponentType<PlayerUnit>(),
@@ -226,7 +226,7 @@ public class CubeGhostUpdateSystem : JobComponentSystem
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 minMaxSnapshotTick = m_ghostMinMaxSnapshotTick,
 #endif
-                ghostSnapshotDataType = GetArchetypeChunkBufferType<CubeSnapshotData>(true),
+                ghostSnapshotDataType = GetArchetypeChunkBufferType<AArcherSnapshotData>(true),
                 ghostEntityType = GetArchetypeChunkEntityType(),
                 ghostPlayerUnitType = GetArchetypeChunkComponentType<PlayerUnit>(),
                 ghostRotationType = GetArchetypeChunkComponentType<Rotation>(),
@@ -239,11 +239,11 @@ public class CubeGhostUpdateSystem : JobComponentSystem
         return inputDeps;
     }
 }
-public partial class CubeGhostSpawnSystem : DefaultGhostSpawnSystem<CubeSnapshotData>
+public partial class AArcherGhostSpawnSystem : DefaultGhostSpawnSystem<AArcherSnapshotData>
 {
     struct SetPredictedDefault : IJobParallelFor
     {
-        [ReadOnly] public NativeArray<CubeSnapshotData> snapshots;
+        [ReadOnly] public NativeArray<AArcherSnapshotData> snapshots;
         public NativeArray<int> predictionMask;
         [ReadOnly][DeallocateOnJobCompletion] public NativeArray<NetworkIdComponent> localPlayerId;
         public void Execute(int index)
@@ -252,7 +252,7 @@ public partial class CubeGhostSpawnSystem : DefaultGhostSpawnSystem<CubeSnapshot
                 predictionMask[index] = 1;
         }
     }
-    protected override JobHandle SetPredictedGhostDefaults(NativeArray<CubeSnapshotData> snapshots, NativeArray<int> predictionMask, JobHandle inputDeps)
+    protected override JobHandle SetPredictedGhostDefaults(NativeArray<AArcherSnapshotData> snapshots, NativeArray<int> predictionMask, JobHandle inputDeps)
     {
         JobHandle playerHandle;
         var job = new SetPredictedDefault

@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
+using UnityEngine;
 
 [UpdateInGroup(typeof(GhostPredictionSystemGroup))]
 public class UnitsSelectionSystem : ComponentSystem
@@ -16,9 +17,12 @@ public class UnitsSelectionSystem : ComponentSystem
         // for each  input from each client
         Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer, ref PredictedGhostComponent prediction, ref Player player) =>
         {
-            if (!GhostPredictionSystemGroup.ShouldPredict(tick, prediction))
-                return;
 
+            if (!GhostPredictionSystemGroup.ShouldPredict(tick, prediction))
+            {
+                Debug.Log("discarted");
+                return;
+            }
             inputBuffer.GetDataAtTick(tick, out PlayerInput input);
 
             var playerId = player.PlayerId;
@@ -45,7 +49,7 @@ public class UnitsSelectionSystem : ComponentSystem
                 // for each unit of client
                 Entities.ForEach((Entity entity, ref Translation unitTrans, ref PlayerUnit playerUnit) =>
                 {
-                    if (playerUnit.PlayerId == playerId)
+                   // if (playerUnit.PlayerId == playerId)
                     {
                         if (minX <= unitTrans.Value.x &&
                             maxX >= unitTrans.Value.y &&

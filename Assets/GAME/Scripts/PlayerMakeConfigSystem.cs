@@ -16,20 +16,25 @@ public class PlayerMakeConfigSystem : ComponentSystem
         Entities.WithAll<PlayerConfig>().ForEach((Entity entity, ref PlayerConfig config, ref Player player) =>
         {
             var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
-            var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<CubeSnapshotData>();
+
+            var firstPlayer = player.PlayerId == 1;
+            var ghostId = firstPlayer ? MobileRTSGhostSerializerCollection.FindGhostType<AArcherSnapshotData>() : MobileRTSGhostSerializerCollection.FindGhostType<BArcherSnapshotData>();
+            var spawnPoint = firstPlayer ? ServerReferences.Instance.spawnA : ServerReferences.Instance.spawnB;
+
+
             var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId].Value;
 
             for (int i = 0; i < config.Units; i++)
             {
                 var unit = EntityManager.Instantiate(prefab);
-                var spawnOffset = new float3((player.PlayerId == 1 ? ServerReferences.Instance.spawnA : ServerReferences.Instance.spawnB).transform.position);
+                var spawnOffset = new float3(spawnPoint.transform.position);
                 spawnOffset.y = 0;
 
                 PostUpdateCommands.SetComponent(unit, new PlayerUnit { PlayerId = player.PlayerId });
                 PostUpdateCommands.AddComponent(unit, new MoveTo
                 {
 
-                    position = spawnOffset +  new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
+                    position = spawnOffset + new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
                     moveSpeed = 5f,
                     move = true
                 });

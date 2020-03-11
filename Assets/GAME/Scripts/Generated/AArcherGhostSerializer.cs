@@ -5,10 +5,11 @@ using Unity.NetCode;
 using Unity.Physics;
 using Unity.Transforms;
 
-public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
+public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
 {
     private ComponentType componentTypePlayerUnit;
     private ComponentType componentTypePhysicsCollider;
+    private ComponentType componentTypeCompositeScale;
     private ComponentType componentTypeLocalToWorld;
     private ComponentType componentTypeRotation;
     private ComponentType componentTypeTranslation;
@@ -23,11 +24,12 @@ public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
         return 1;
     }
 
-    public int SnapshotSize => UnsafeUtility.SizeOf<CubeSnapshotData>();
+    public int SnapshotSize => UnsafeUtility.SizeOf<AArcherSnapshotData>();
     public void BeginSerialize(ComponentSystemBase system)
     {
         componentTypePlayerUnit = ComponentType.ReadWrite<PlayerUnit>();
         componentTypePhysicsCollider = ComponentType.ReadWrite<PhysicsCollider>();
+        componentTypeCompositeScale = ComponentType.ReadWrite<CompositeScale>();
         componentTypeLocalToWorld = ComponentType.ReadWrite<LocalToWorld>();
         componentTypeRotation = ComponentType.ReadWrite<Rotation>();
         componentTypeTranslation = ComponentType.ReadWrite<Translation>();
@@ -36,7 +38,7 @@ public struct CubeGhostSerializer : IGhostSerializer<CubeSnapshotData>
         ghostTranslationType = system.GetArchetypeChunkComponentType<Translation>(true);
     }
 
-    public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref CubeSnapshotData snapshot, GhostSerializerState serializerState)
+    public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref AArcherSnapshotData snapshot, GhostSerializerState serializerState)
     {
         snapshot.tick = tick;
         var chunkDataPlayerUnit = chunk.GetNativeArray(ghostPlayerUnitType);

@@ -594,10 +594,9 @@ MonoBehaviour:
   - prefab: {fileID: 2889285709047827818, guid: 86d05f4a22ad7ef4caf67c512f5c3375,
       type: 3}
     enabled: 1
-  - prefab: {fileID: 6245673612729185221, guid: 307a8f9f66f5fff4681185c96d76adad,
-      type: 3}
+  - prefab: {fileID: 984540438652241702, guid: d72446b351c43c147a058427f8794f98, type: 3}
     enabled: 1
-  - prefab: {fileID: 7148535117279538501, guid: a3226888956b3454e8c446aed545a0e3,
+  - prefab: {fileID: 3785989014083086990, guid: ed7ca7548a0f8474ab6e6fe0d4f206e0,
       type: 3}
     enabled: 1
 --- !u!1 &1352363124

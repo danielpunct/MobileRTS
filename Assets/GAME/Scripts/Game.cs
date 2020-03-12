@@ -148,4 +148,3 @@ public class GoInGameServerSystem : ComponentSystem
     }
 }
 
-public struct UnitSelected : IComponentData { }

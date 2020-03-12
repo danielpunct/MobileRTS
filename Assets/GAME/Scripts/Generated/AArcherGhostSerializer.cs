@@ -9,6 +9,7 @@ using Unity.Rendering;
 public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
 {
     private ComponentType componentTypePlayerUnit;
+    private ComponentType componentTypeUnitSelectionState;
     private ComponentType componentTypePhysicsCollider;
     private ComponentType componentTypeCompositeScale;
     private ComponentType componentTypeLocalToWorld;
@@ -17,6 +18,7 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
     private ComponentType componentTypeLinkedEntityGroup;
     // FIXME: These disable safety since all serializers have an instance of the same type - causing aliasing. Should be fixed in a cleaner way
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<UnitSelectionState> ghostUnitSelectionStateType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<Rotation> ghostRotationType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<Translation> ghostTranslationType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkBufferType<LinkedEntityGroup> ghostLinkedEntityGroupType;
@@ -35,6 +37,7 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
     public void BeginSerialize(ComponentSystemBase system)
     {
         componentTypePlayerUnit = ComponentType.ReadWrite<PlayerUnit>();
+        componentTypeUnitSelectionState = ComponentType.ReadWrite<UnitSelectionState>();
         componentTypePhysicsCollider = ComponentType.ReadWrite<PhysicsCollider>();
         componentTypeCompositeScale = ComponentType.ReadWrite<CompositeScale>();
         componentTypeLocalToWorld = ComponentType.ReadWrite<LocalToWorld>();
@@ -42,6 +45,7 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
         componentTypeTranslation = ComponentType.ReadWrite<Translation>();
         componentTypeLinkedEntityGroup = ComponentType.ReadWrite<LinkedEntityGroup>();
         ghostPlayerUnitType = system.GetArchetypeChunkComponentType<PlayerUnit>(true);
+        ghostUnitSelectionStateType = system.GetArchetypeChunkComponentType<UnitSelectionState>(true);
         ghostRotationType = system.GetArchetypeChunkComponentType<Rotation>(true);
         ghostTranslationType = system.GetArchetypeChunkComponentType<Translation>(true);
         ghostLinkedEntityGroupType = system.GetArchetypeChunkBufferType<LinkedEntityGroup>(true);
@@ -55,10 +59,12 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
     {
         snapshot.tick = tick;
         var chunkDataPlayerUnit = chunk.GetNativeArray(ghostPlayerUnitType);
+        var chunkDataUnitSelectionState = chunk.GetNativeArray(ghostUnitSelectionStateType);
         var chunkDataRotation = chunk.GetNativeArray(ghostRotationType);
         var chunkDataTranslation = chunk.GetNativeArray(ghostTranslationType);
         var chunkDataLinkedEntityGroup = chunk.GetBufferAccessor(ghostLinkedEntityGroupType);
         snapshot.SetPlayerUnitPlayerId(chunkDataPlayerUnit[ent].PlayerId, serializerState);
+        snapshot.SetUnitSelectionStateIsSelected(chunkDataUnitSelectionState[ent].IsSelected, serializerState);
         snapshot.SetRotationValue(chunkDataRotation[ent].Value, serializerState);
         snapshot.SetTranslationValue(chunkDataTranslation[ent].Value, serializerState);
         snapshot.SetChild0RotationValue(ghostChild0RotationType[chunkDataLinkedEntityGroup[ent][1].Value].Value, serializerState);

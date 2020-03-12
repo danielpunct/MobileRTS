@@ -8,12 +8,12 @@ using static Unity.Mathematics.math;
 
 public class UnitsMoveSystem : JobComponentSystem
 {
-    [BurstCompile]
-    struct UnitsMoveSystemJob : IJobForEach<Translation, Rotation, MoveTo>
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
     {
-        public float deltaTime;
 
-        public void Execute(ref Translation translation, [ReadOnly] ref Rotation rotation, ref MoveTo moveTo)
+        var deltaTime = UnityEngine.Time.deltaTime;
+
+        return Entities.ForEach((ref Translation translation, ref MoveTo moveTo, in Rotation rotation) =>
         {
             if (moveTo.move) {
                 float reachedPositionDistance = 1f;
@@ -27,22 +27,9 @@ public class UnitsMoveSystem : JobComponentSystem
                     moveTo.move = false;
                 }
             }
-        }
+
+        }).Schedule(inputDependencies);
     }
-
-    protected override JobHandle OnUpdate(JobHandle inputDependencies)
-    {
-        var job = new UnitsMoveSystemJob
-        {
-
-            deltaTime = UnityEngine.Time.deltaTime
-        };
-
-
-        // Now that the job is set up, schedule it to be run. 
-        return job.Schedule(this, inputDependencies);
-    }
-
 
 }
 

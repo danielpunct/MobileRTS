@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2375866753128783089}
   - component: {fileID: 6245673612729185221}
   - component: {fileID: 9143595462230897896}
+  - component: {fileID: -5332270495206072200}
   m_Layer: 0
   m_Name: AArcher
   m_TagString: Untagged
@@ -76,6 +77,17 @@ MonoBehaviour:
     sendDataTo: 0
     fields:
     - name: PlayerId
+      quantization: -1
+      interpolate: 0
+    manualFieldList: 0
+    entityIndex: 0
+  - name: UnitSelectionState
+    interpolatedClient: 1
+    predictedClient: 1
+    server: 1
+    sendDataTo: 0
+    fields:
+    - name: IsSelected
       quantization: -1
       interpolate: 0
     manualFieldList: 0
@@ -296,6 +308,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerId: 0
+--- !u!114 &-5332270495206072200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2375866753128783090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98b5909134c0b444af04b6313b4949a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsSelected: 0
 --- !u!1 &6384369783042429264
 GameObject:
   m_ObjectHideFlags: 0

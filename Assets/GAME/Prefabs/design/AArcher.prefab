@@ -157,7 +157,7 @@ PrefabInstance:
     - target: {fileID: 2610653280916932604, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: m_Name
-      value: AArcher 0
+      value: AArcher
       objectReference: {fileID: 0}
     - target: {fileID: 4693288385144985583, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}

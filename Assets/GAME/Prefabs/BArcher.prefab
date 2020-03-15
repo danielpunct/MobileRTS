@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2865510358894351786
 Transform:
   m_ObjectHideFlags: 0
@@ -247,9 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabId: 06544837da7191f4d81c1d7b1f4a91bf
+  prefabId: ed7ca7548a0f8474ab6e6fe0d4f206e0
   DefaultClientInstantiationType: 2
-  RootPath: /GAME/Scripts/Generated
+  RootPath: /GAME/Scripts/_generated
   SnapshotDataPath: BArcherSnapshotData.cs
   UpdateSystemPath: BArcherGhostUpdateSystem.cs
   SerializerPath: BArcherGhostSerializer.cs

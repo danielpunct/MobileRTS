@@ -247,9 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c79d771cedb4794bf100ce60df5f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabId: 06544837da7191f4d81c1d7b1f4a91bf
+  prefabId: d72446b351c43c147a058427f8794f98
   DefaultClientInstantiationType: 2
-  RootPath: /GAME/Scripts/Generated
+  RootPath: /GAME/Scripts/_generated
   SnapshotDataPath: AArcherSnapshotData.cs
   UpdateSystemPath: AArcherGhostUpdateSystem.cs
   SerializerPath: AArcherGhostSerializer.cs

@@ -33,10 +33,13 @@ public class PlayerMakeConfigSystem : ComponentSystem
                 PostUpdateCommands.SetComponent(unit, new PlayerUnit { PlayerId = player.PlayerId });
                 PostUpdateCommands.AddComponent(unit, new MoveTo
                 {
-
                     position = spawnOffset + new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
                     moveSpeed = 5f,
                     move = true
+                });
+                PostUpdateCommands.AddComponent(unit, new Attack
+                {
+                    AttackRadius = 2
                 });
             }
 

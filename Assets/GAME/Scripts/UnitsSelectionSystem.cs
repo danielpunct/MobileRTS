@@ -11,7 +11,7 @@ public class UnitsSelectionSystem : JobComponentSystem
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
         var us = GetComponentDataFromEntity<UnitSelectionState>(true);
-        var PostUpdateCommands = new EntityCommandBuffer(Allocator.Temp);
+        var ECB = new EntityCommandBuffer(Allocator.Temp);
 
         Entities
              .WithEntityQueryOptions(EntityQueryOptions.IncludeDisabled)
@@ -24,16 +24,16 @@ public class UnitsSelectionSystem : JobComponentSystem
 
              if (!sel)
              {
-                 PostUpdateCommands.AddComponent<Disabled>(entity);
+                 ECB.AddComponent<Disabled>(entity);
              }
              else
              {
-                 PostUpdateCommands.RemoveComponent<Disabled>(entity);
+                 ECB.RemoveComponent<Disabled>(entity);
              }
          }).Run();
 
-        PostUpdateCommands.Playback(EntityManager);
-        PostUpdateCommands.Dispose();
+        ECB.Playback(EntityManager);
+        ECB.Dispose();
 
         return default;
     }

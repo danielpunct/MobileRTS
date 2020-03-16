@@ -1,19 +1,16 @@
-﻿using Unity.Burst;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
-using static Unity.Mathematics.math;
 
 public class UnitsMoveSystem : JobComponentSystem
 {
     protected override JobHandle OnUpdate(JobHandle inputDependencies)
     {
-
         var deltaTime = UnityEngine.Time.deltaTime;
 
-        return Entities.ForEach((ref Translation translation, ref MoveTo moveTo, in Rotation rotation) =>
+        var job = Entities.ForEach((ref Translation translation, ref MoveTo moveTo, in Rotation rotation) =>
         {
             if (moveTo.move) {
                 float reachedPositionDistance = 1f;
@@ -29,8 +26,11 @@ public class UnitsMoveSystem : JobComponentSystem
             }
 
         }).Schedule(inputDependencies);
-    }
 
+        job.Complete();
+
+        return job;
+    }
 }
 
 public struct MoveTo : IComponentData

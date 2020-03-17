@@ -30,6 +30,16 @@ public class Game : ComponentSystem
         foreach (var world in World.All)
         {
             var network = world.GetExistingSystem<NetworkStreamReceiveSystem>();
+#if UNITY_ANDROID
+            if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
+            {
+                // Client worlds automatically connect to local network
+                if (NetworkEndPoint.TryParse("192.168.1.129", 7979, out var ep))
+                {
+                    network.Connect(ep);
+                }
+            }
+#else
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
                 // Client worlds automatically connect to localhost
@@ -37,6 +47,8 @@ public class Game : ComponentSystem
                 ep.Port = 7979;
                 network.Connect(ep);
             }
+#endif
+
 #if UNITY_EDITOR
             else if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
             {
@@ -44,15 +56,6 @@ public class Game : ComponentSystem
                 NetworkEndPoint ep = NetworkEndPoint.AnyIpv4;
                 ep.Port = 7979;
                 network.Listen(ep);
-            }
-#else
-            else if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
-            {
-                // Client worlds automatically connect to local network
-                if (NetworkEndPoint.TryParse("192.168.1.129", 7979, out var ep))
-                {
-                    network.Connect(ep);
-                }
             }
 #endif
         }

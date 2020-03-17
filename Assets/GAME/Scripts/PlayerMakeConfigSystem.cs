@@ -39,7 +39,8 @@ public class PlayerMakeConfigSystem : ComponentSystem
                 });
                 PostUpdateCommands.AddComponent(unit, new Attack
                 {
-                    AttackRadius = 2
+                    AttackRadius = 20,
+                    AttackedAt = 0
                 });
             }
 

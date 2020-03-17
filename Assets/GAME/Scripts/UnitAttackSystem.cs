@@ -73,8 +73,8 @@ public class UnitAttackSystem : JobComponentSystem
             from = from,
             to = to,
             lerpValue = 0,
-            maxHeight = 20,
-            speed = 30
+            maxHeight = 30,
+            speed = 2
         });
     }
 }

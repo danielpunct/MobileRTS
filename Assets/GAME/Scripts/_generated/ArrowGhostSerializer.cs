@@ -10,9 +10,6 @@ public struct ArrowGhostSerializer : IGhostSerializer<ArrowSnapshotData>
 {
     private ComponentType componentTypePlayerBullet;
     private ComponentType componentTypePhysicsCollider;
-    private ComponentType componentTypePhysicsDamping;
-    private ComponentType componentTypePhysicsMass;
-    private ComponentType componentTypePhysicsVelocity;
     private ComponentType componentTypeLocalToWorld;
     private ComponentType componentTypeRotation;
     private ComponentType componentTypeTranslation;
@@ -38,9 +35,6 @@ public struct ArrowGhostSerializer : IGhostSerializer<ArrowSnapshotData>
     {
         componentTypePlayerBullet = ComponentType.ReadWrite<PlayerBullet>();
         componentTypePhysicsCollider = ComponentType.ReadWrite<PhysicsCollider>();
-        componentTypePhysicsDamping = ComponentType.ReadWrite<PhysicsDamping>();
-        componentTypePhysicsMass = ComponentType.ReadWrite<PhysicsMass>();
-        componentTypePhysicsVelocity = ComponentType.ReadWrite<PhysicsVelocity>();
         componentTypeLocalToWorld = ComponentType.ReadWrite<LocalToWorld>();
         componentTypeRotation = ComponentType.ReadWrite<Rotation>();
         componentTypeTranslation = ComponentType.ReadWrite<Translation>();

@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
-using UnityEngine;
 
 [UpdateInGroup(typeof(ServerSimulationSystemGroup))]
 [UpdateAfter(typeof(UnitsMoveSystem))]
@@ -23,8 +20,8 @@ public class UnitAttackSystem : JobComponentSystem
 
         Entities.WithoutBurst().ForEach((
            Entity entity,
+           ref Attack attack,
            in PlayerUnit playerUnit,
-           in Attack attack,
            in Translation translation) =>
            {
                var attacked = time - attack.AttackedAt < 2;
@@ -47,17 +44,13 @@ public class UnitAttackSystem : JobComponentSystem
                    var distance = math.distance(positions[i].Value, translation.Value);
                    if (distance < attack.AttackRadius)
                    {
-                       // create prefab
-                       ECB.Instantiate(arrowPrefab);
+                       Shoot(ECB, arrowPrefab, translation.Value, positions[i].Value);
 
                        // update components
-                       var attack_updated = attack;
-                       attack_updated.AttackedAt = time;
-                       ECB.SetComponent(entity, attack_updated);
+                       attack.AttackedAt = time;
                        attacked = true;
                        break;
                    }
-
                }
 
                positions.Dispose();
@@ -71,33 +64,19 @@ public class UnitAttackSystem : JobComponentSystem
         return default;
     }
 
-
-
-    //    void TryAttack(bool attacked, EntityCommandBuffer ECB, Attack attack, float time, float3 position, Entity entity)
-    //    {
-    //        Entities.ForEach((
-    //              ref Entity otherEntity,
-    //              in Translation otherTranslation) =>
-    //              {
-    //                  if (attacked)
-    //                  {
-    //                      return;
-    //                  }
-
-    //                  if (otherEntity != entity)
-    //                  {
-    //                      var distance = math.distance(position, otherTranslation.Value);
-    //                      if (distance < attack.AttackRadius)
-    //                      {
-    //                          var attack_updated = attack;
-    //                          attack_updated.AttackedAt = time;
-    //                          ECB.SetComponent(entity, attack_updated);
-    //                          attacked = true;
-    //                      }
-    //                  }
-    //              }).Run();
-
-    //    }
+    void Shoot(EntityCommandBuffer ECB, Entity arrowPrefab, float3 from, float3 to)
+    {
+        // create prefab
+        var bullet = ECB.Instantiate(arrowPrefab);
+        ECB.AddComponent(bullet, new ArcMove
+        {
+            from = from,
+            to = to,
+            lerpValue = 0,
+            maxHeight = 20,
+            speed = 30
+        });
+    }
 }
 
 public struct Attack : IComponentData

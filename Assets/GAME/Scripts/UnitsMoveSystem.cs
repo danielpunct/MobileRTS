@@ -2,8 +2,10 @@
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.NetCode;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(ServerSimulationSystemGroup))]
 public class UnitsMoveSystem : JobComponentSystem
 {
     protected override JobHandle OnUpdate(JobHandle inputDependencies)

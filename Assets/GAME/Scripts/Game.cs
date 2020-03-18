@@ -144,7 +144,7 @@ public class GoInGameServerSystem : ComponentSystem
             PostUpdateCommands.AddBuffer<PlayerInput>(player);
             PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent { targetEntity = player });
 
-            PostUpdateCommands.AddComponent(player, new PlayerConfig { Units = 2 });
+            PostUpdateCommands.AddComponent(player, new PlayerConfig { Units = 5 });
 
             PostUpdateCommands.DestroyEntity(reqEnt);
         });

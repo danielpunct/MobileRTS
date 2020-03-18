@@ -51,14 +51,15 @@ public class InputHandleSystem : ComponentSystem
                 // for each unit of client
                 Entities.ForEach((Entity entity, ref Translation unitTrans, ref PlayerUnit playerUnit) =>
                 {
-                   // if (playerUnit.PlayerId == playerId)
+                    if (playerUnit.PlayerId == playerId)
                     {
                         if (minX <= unitTrans.Value.x &&
                             maxX >= unitTrans.Value.x &&
                             minZ <= unitTrans.Value.z &&
                             maxZ >= unitTrans.Value.z)
                         {
-                            PostUpdateCommands.SetComponent(entity, new UnitSelectionState() { IsSelected = true }) ;
+                            PostUpdateCommands.SetComponent(entity, new UnitSelectionState() { IsSelected = true });
+                            GameReferences.Instance.ShowInfo(playerUnit.UnitId);
                         }
                     }
                 });

@@ -6,4 +6,6 @@ public struct PlayerUnit : IComponentData
 {
     [GhostDefaultField]
     public int PlayerId;
+
+    public int UnitId;
 }

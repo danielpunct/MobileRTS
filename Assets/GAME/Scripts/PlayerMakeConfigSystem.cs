@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
-using Unity.Jobs;
+﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
 using UnityEngine;
@@ -15,7 +12,6 @@ public class PlayerMakeConfigSystem : ComponentSystem
     {
         Entities.WithAll<PlayerConfig>().ForEach((Entity entity, ref PlayerConfig config, ref Player player) =>
         {
-
             var firstPlayer = player.PlayerId == 1;
             var spawnPoint = firstPlayer ? ServerReferences.Instance.spawnA : ServerReferences.Instance.spawnB;
 
@@ -42,7 +38,11 @@ public class PlayerMakeConfigSystem : ComponentSystem
         var unit = EntityManager.Instantiate(prefab);
         var spawnOffset = new float3(spawnPoint.transform.position) { y = 0 };
 
-        PostUpdateCommands.SetComponent(unit, new PlayerUnit { PlayerId = playerId });
+        PostUpdateCommands.SetComponent(unit, new PlayerUnit 
+        { 
+            PlayerId = playerId,
+            UnitId = 1
+        });
         PostUpdateCommands.AddComponent(unit, new MoveTo
         {
             position = spawnOffset + new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
@@ -61,7 +61,11 @@ public class PlayerMakeConfigSystem : ComponentSystem
         var unit = EntityManager.Instantiate(prefab);
         var spawnOffset = new float3(spawnPoint.transform.position) { y = 0 };
 
-        PostUpdateCommands.SetComponent(unit, new PlayerUnit { PlayerId = playerId });
+        PostUpdateCommands.SetComponent(unit, new PlayerUnit 
+        { 
+            PlayerId = playerId,
+            UnitId = 2 
+        });
         PostUpdateCommands.AddComponent(unit, new MoveTo
         {
             position = spawnOffset + new float3(random.NextFloat(-10f, 10f), 0, random.NextFloat(-10f, 10f)),
@@ -73,9 +77,7 @@ public class PlayerMakeConfigSystem : ComponentSystem
             AttackRadius = 50,
             AttackedAt = 0
         });
-
     } 
-
 
     Entity GetPrefab(int ghostId)
     {

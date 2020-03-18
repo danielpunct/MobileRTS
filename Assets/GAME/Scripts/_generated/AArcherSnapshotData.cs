@@ -28,6 +28,20 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
     private int Child1TranslationValueX;
     private int Child1TranslationValueY;
     private int Child1TranslationValueZ;
+    private int Child2RotationValueX;
+    private int Child2RotationValueY;
+    private int Child2RotationValueZ;
+    private int Child2RotationValueW;
+    private int Child2TranslationValueX;
+    private int Child2TranslationValueY;
+    private int Child2TranslationValueZ;
+    private int Child3RotationValueX;
+    private int Child3RotationValueY;
+    private int Child3RotationValueZ;
+    private int Child3RotationValueW;
+    private int Child3TranslationValueX;
+    private int Child3TranslationValueY;
+    private int Child3TranslationValueZ;
     uint changeMask0;
 
     public uint Tick => tick;
@@ -174,6 +188,80 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
         Child1TranslationValueY = (int)(val.y * 100);
         Child1TranslationValueZ = (int)(val.z * 100);
     }
+    public quaternion GetChild2RotationValue(GhostDeserializerState deserializerState)
+    {
+        return GetChild2RotationValue();
+    }
+    public quaternion GetChild2RotationValue()
+    {
+        return new quaternion(Child2RotationValueX * 0.001f, Child2RotationValueY * 0.001f, Child2RotationValueZ * 0.001f, Child2RotationValueW * 0.001f);
+    }
+    public void SetChild2RotationValue(quaternion q, GhostSerializerState serializerState)
+    {
+        SetChild2RotationValue(q);
+    }
+    public void SetChild2RotationValue(quaternion q)
+    {
+        Child2RotationValueX = (int)(q.value.x * 1000);
+        Child2RotationValueY = (int)(q.value.y * 1000);
+        Child2RotationValueZ = (int)(q.value.z * 1000);
+        Child2RotationValueW = (int)(q.value.w * 1000);
+    }
+    public float3 GetChild2TranslationValue(GhostDeserializerState deserializerState)
+    {
+        return GetChild2TranslationValue();
+    }
+    public float3 GetChild2TranslationValue()
+    {
+        return new float3(Child2TranslationValueX * 0.01f, Child2TranslationValueY * 0.01f, Child2TranslationValueZ * 0.01f);
+    }
+    public void SetChild2TranslationValue(float3 val, GhostSerializerState serializerState)
+    {
+        SetChild2TranslationValue(val);
+    }
+    public void SetChild2TranslationValue(float3 val)
+    {
+        Child2TranslationValueX = (int)(val.x * 100);
+        Child2TranslationValueY = (int)(val.y * 100);
+        Child2TranslationValueZ = (int)(val.z * 100);
+    }
+    public quaternion GetChild3RotationValue(GhostDeserializerState deserializerState)
+    {
+        return GetChild3RotationValue();
+    }
+    public quaternion GetChild3RotationValue()
+    {
+        return new quaternion(Child3RotationValueX * 0.001f, Child3RotationValueY * 0.001f, Child3RotationValueZ * 0.001f, Child3RotationValueW * 0.001f);
+    }
+    public void SetChild3RotationValue(quaternion q, GhostSerializerState serializerState)
+    {
+        SetChild3RotationValue(q);
+    }
+    public void SetChild3RotationValue(quaternion q)
+    {
+        Child3RotationValueX = (int)(q.value.x * 1000);
+        Child3RotationValueY = (int)(q.value.y * 1000);
+        Child3RotationValueZ = (int)(q.value.z * 1000);
+        Child3RotationValueW = (int)(q.value.w * 1000);
+    }
+    public float3 GetChild3TranslationValue(GhostDeserializerState deserializerState)
+    {
+        return GetChild3TranslationValue();
+    }
+    public float3 GetChild3TranslationValue()
+    {
+        return new float3(Child3TranslationValueX * 0.01f, Child3TranslationValueY * 0.01f, Child3TranslationValueZ * 0.01f);
+    }
+    public void SetChild3TranslationValue(float3 val, GhostSerializerState serializerState)
+    {
+        SetChild3TranslationValue(val);
+    }
+    public void SetChild3TranslationValue(float3 val)
+    {
+        Child3TranslationValueX = (int)(val.x * 100);
+        Child3TranslationValueY = (int)(val.y * 100);
+        Child3TranslationValueZ = (int)(val.z * 100);
+    }
 
     public void PredictDelta(uint tick, ref AArcherSnapshotData baseline1, ref AArcherSnapshotData baseline2)
     {
@@ -201,6 +289,20 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
         Child1TranslationValueX = predictor.PredictInt(Child1TranslationValueX, baseline1.Child1TranslationValueX, baseline2.Child1TranslationValueX);
         Child1TranslationValueY = predictor.PredictInt(Child1TranslationValueY, baseline1.Child1TranslationValueY, baseline2.Child1TranslationValueY);
         Child1TranslationValueZ = predictor.PredictInt(Child1TranslationValueZ, baseline1.Child1TranslationValueZ, baseline2.Child1TranslationValueZ);
+        Child2RotationValueX = predictor.PredictInt(Child2RotationValueX, baseline1.Child2RotationValueX, baseline2.Child2RotationValueX);
+        Child2RotationValueY = predictor.PredictInt(Child2RotationValueY, baseline1.Child2RotationValueY, baseline2.Child2RotationValueY);
+        Child2RotationValueZ = predictor.PredictInt(Child2RotationValueZ, baseline1.Child2RotationValueZ, baseline2.Child2RotationValueZ);
+        Child2RotationValueW = predictor.PredictInt(Child2RotationValueW, baseline1.Child2RotationValueW, baseline2.Child2RotationValueW);
+        Child2TranslationValueX = predictor.PredictInt(Child2TranslationValueX, baseline1.Child2TranslationValueX, baseline2.Child2TranslationValueX);
+        Child2TranslationValueY = predictor.PredictInt(Child2TranslationValueY, baseline1.Child2TranslationValueY, baseline2.Child2TranslationValueY);
+        Child2TranslationValueZ = predictor.PredictInt(Child2TranslationValueZ, baseline1.Child2TranslationValueZ, baseline2.Child2TranslationValueZ);
+        Child3RotationValueX = predictor.PredictInt(Child3RotationValueX, baseline1.Child3RotationValueX, baseline2.Child3RotationValueX);
+        Child3RotationValueY = predictor.PredictInt(Child3RotationValueY, baseline1.Child3RotationValueY, baseline2.Child3RotationValueY);
+        Child3RotationValueZ = predictor.PredictInt(Child3RotationValueZ, baseline1.Child3RotationValueZ, baseline2.Child3RotationValueZ);
+        Child3RotationValueW = predictor.PredictInt(Child3RotationValueW, baseline1.Child3RotationValueW, baseline2.Child3RotationValueW);
+        Child3TranslationValueX = predictor.PredictInt(Child3TranslationValueX, baseline1.Child3TranslationValueX, baseline2.Child3TranslationValueX);
+        Child3TranslationValueY = predictor.PredictInt(Child3TranslationValueY, baseline1.Child3TranslationValueY, baseline2.Child3TranslationValueY);
+        Child3TranslationValueZ = predictor.PredictInt(Child3TranslationValueZ, baseline1.Child3TranslationValueZ, baseline2.Child3TranslationValueZ);
     }
 
     public void Serialize(int networkId, ref AArcherSnapshotData baseline, ref DataStreamWriter writer, NetworkCompressionModel compressionModel)
@@ -228,6 +330,20 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
         changeMask0 |= (Child1TranslationValueX != baseline.Child1TranslationValueX ||
                                            Child1TranslationValueY != baseline.Child1TranslationValueY ||
                                            Child1TranslationValueZ != baseline.Child1TranslationValueZ) ? (1u<<7) : 0;
+        changeMask0 |= (Child2RotationValueX != baseline.Child2RotationValueX ||
+                                           Child2RotationValueY != baseline.Child2RotationValueY ||
+                                           Child2RotationValueZ != baseline.Child2RotationValueZ ||
+                                           Child2RotationValueW != baseline.Child2RotationValueW) ? (1u<<8) : 0;
+        changeMask0 |= (Child2TranslationValueX != baseline.Child2TranslationValueX ||
+                                           Child2TranslationValueY != baseline.Child2TranslationValueY ||
+                                           Child2TranslationValueZ != baseline.Child2TranslationValueZ) ? (1u<<9) : 0;
+        changeMask0 |= (Child3RotationValueX != baseline.Child3RotationValueX ||
+                                           Child3RotationValueY != baseline.Child3RotationValueY ||
+                                           Child3RotationValueZ != baseline.Child3RotationValueZ ||
+                                           Child3RotationValueW != baseline.Child3RotationValueW) ? (1u<<10) : 0;
+        changeMask0 |= (Child3TranslationValueX != baseline.Child3TranslationValueX ||
+                                           Child3TranslationValueY != baseline.Child3TranslationValueY ||
+                                           Child3TranslationValueZ != baseline.Child3TranslationValueZ) ? (1u<<11) : 0;
         writer.WritePackedUIntDelta(changeMask0, baseline.changeMask0, compressionModel);
         if ((changeMask0 & (1 << 0)) != 0)
             writer.WritePackedIntDelta(PlayerUnitPlayerId, baseline.PlayerUnitPlayerId, compressionModel);
@@ -271,6 +387,32 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
             writer.WritePackedIntDelta(Child1TranslationValueX, baseline.Child1TranslationValueX, compressionModel);
             writer.WritePackedIntDelta(Child1TranslationValueY, baseline.Child1TranslationValueY, compressionModel);
             writer.WritePackedIntDelta(Child1TranslationValueZ, baseline.Child1TranslationValueZ, compressionModel);
+        }
+        if ((changeMask0 & (1 << 8)) != 0)
+        {
+            writer.WritePackedIntDelta(Child2RotationValueX, baseline.Child2RotationValueX, compressionModel);
+            writer.WritePackedIntDelta(Child2RotationValueY, baseline.Child2RotationValueY, compressionModel);
+            writer.WritePackedIntDelta(Child2RotationValueZ, baseline.Child2RotationValueZ, compressionModel);
+            writer.WritePackedIntDelta(Child2RotationValueW, baseline.Child2RotationValueW, compressionModel);
+        }
+        if ((changeMask0 & (1 << 9)) != 0)
+        {
+            writer.WritePackedIntDelta(Child2TranslationValueX, baseline.Child2TranslationValueX, compressionModel);
+            writer.WritePackedIntDelta(Child2TranslationValueY, baseline.Child2TranslationValueY, compressionModel);
+            writer.WritePackedIntDelta(Child2TranslationValueZ, baseline.Child2TranslationValueZ, compressionModel);
+        }
+        if ((changeMask0 & (1 << 10)) != 0)
+        {
+            writer.WritePackedIntDelta(Child3RotationValueX, baseline.Child3RotationValueX, compressionModel);
+            writer.WritePackedIntDelta(Child3RotationValueY, baseline.Child3RotationValueY, compressionModel);
+            writer.WritePackedIntDelta(Child3RotationValueZ, baseline.Child3RotationValueZ, compressionModel);
+            writer.WritePackedIntDelta(Child3RotationValueW, baseline.Child3RotationValueW, compressionModel);
+        }
+        if ((changeMask0 & (1 << 11)) != 0)
+        {
+            writer.WritePackedIntDelta(Child3TranslationValueX, baseline.Child3TranslationValueX, compressionModel);
+            writer.WritePackedIntDelta(Child3TranslationValueY, baseline.Child3TranslationValueY, compressionModel);
+            writer.WritePackedIntDelta(Child3TranslationValueZ, baseline.Child3TranslationValueZ, compressionModel);
         }
     }
 
@@ -365,6 +507,58 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
             Child1TranslationValueY = baseline.Child1TranslationValueY;
             Child1TranslationValueZ = baseline.Child1TranslationValueZ;
         }
+        if ((changeMask0 & (1 << 8)) != 0)
+        {
+            Child2RotationValueX = reader.ReadPackedIntDelta(baseline.Child2RotationValueX, compressionModel);
+            Child2RotationValueY = reader.ReadPackedIntDelta(baseline.Child2RotationValueY, compressionModel);
+            Child2RotationValueZ = reader.ReadPackedIntDelta(baseline.Child2RotationValueZ, compressionModel);
+            Child2RotationValueW = reader.ReadPackedIntDelta(baseline.Child2RotationValueW, compressionModel);
+        }
+        else
+        {
+            Child2RotationValueX = baseline.Child2RotationValueX;
+            Child2RotationValueY = baseline.Child2RotationValueY;
+            Child2RotationValueZ = baseline.Child2RotationValueZ;
+            Child2RotationValueW = baseline.Child2RotationValueW;
+        }
+        if ((changeMask0 & (1 << 9)) != 0)
+        {
+            Child2TranslationValueX = reader.ReadPackedIntDelta(baseline.Child2TranslationValueX, compressionModel);
+            Child2TranslationValueY = reader.ReadPackedIntDelta(baseline.Child2TranslationValueY, compressionModel);
+            Child2TranslationValueZ = reader.ReadPackedIntDelta(baseline.Child2TranslationValueZ, compressionModel);
+        }
+        else
+        {
+            Child2TranslationValueX = baseline.Child2TranslationValueX;
+            Child2TranslationValueY = baseline.Child2TranslationValueY;
+            Child2TranslationValueZ = baseline.Child2TranslationValueZ;
+        }
+        if ((changeMask0 & (1 << 10)) != 0)
+        {
+            Child3RotationValueX = reader.ReadPackedIntDelta(baseline.Child3RotationValueX, compressionModel);
+            Child3RotationValueY = reader.ReadPackedIntDelta(baseline.Child3RotationValueY, compressionModel);
+            Child3RotationValueZ = reader.ReadPackedIntDelta(baseline.Child3RotationValueZ, compressionModel);
+            Child3RotationValueW = reader.ReadPackedIntDelta(baseline.Child3RotationValueW, compressionModel);
+        }
+        else
+        {
+            Child3RotationValueX = baseline.Child3RotationValueX;
+            Child3RotationValueY = baseline.Child3RotationValueY;
+            Child3RotationValueZ = baseline.Child3RotationValueZ;
+            Child3RotationValueW = baseline.Child3RotationValueW;
+        }
+        if ((changeMask0 & (1 << 11)) != 0)
+        {
+            Child3TranslationValueX = reader.ReadPackedIntDelta(baseline.Child3TranslationValueX, compressionModel);
+            Child3TranslationValueY = reader.ReadPackedIntDelta(baseline.Child3TranslationValueY, compressionModel);
+            Child3TranslationValueZ = reader.ReadPackedIntDelta(baseline.Child3TranslationValueZ, compressionModel);
+        }
+        else
+        {
+            Child3TranslationValueX = baseline.Child3TranslationValueX;
+            Child3TranslationValueY = baseline.Child3TranslationValueY;
+            Child3TranslationValueZ = baseline.Child3TranslationValueZ;
+        }
     }
     public void Interpolate(ref AArcherSnapshotData target, float factor)
     {
@@ -374,5 +568,9 @@ public struct AArcherSnapshotData : ISnapshotData<AArcherSnapshotData>
         SetChild0TranslationValue(math.lerp(GetChild0TranslationValue(), target.GetChild0TranslationValue(), factor));
         SetChild1RotationValue(math.slerp(GetChild1RotationValue(), target.GetChild1RotationValue(), factor));
         SetChild1TranslationValue(math.lerp(GetChild1TranslationValue(), target.GetChild1TranslationValue(), factor));
+        SetChild2RotationValue(math.slerp(GetChild2RotationValue(), target.GetChild2RotationValue(), factor));
+        SetChild2TranslationValue(math.lerp(GetChild2TranslationValue(), target.GetChild2TranslationValue(), factor));
+        SetChild3RotationValue(math.slerp(GetChild3RotationValue(), target.GetChild3RotationValue(), factor));
+        SetChild3TranslationValue(math.lerp(GetChild3TranslationValue(), target.GetChild3TranslationValue(), factor));
     }
 }

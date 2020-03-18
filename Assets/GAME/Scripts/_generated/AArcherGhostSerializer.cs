@@ -26,6 +26,10 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Translation> ghostChild0TranslationType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Rotation> ghostChild1RotationType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Translation> ghostChild1TranslationType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Rotation> ghostChild2RotationType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Translation> ghostChild2TranslationType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Rotation> ghostChild3RotationType;
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ComponentDataFromEntity<Translation> ghostChild3TranslationType;
 
 
     public int CalculateImportance(ArchetypeChunk chunk)
@@ -53,6 +57,10 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
         ghostChild0TranslationType = system.GetComponentDataFromEntity<Translation>(true);
         ghostChild1RotationType = system.GetComponentDataFromEntity<Rotation>(true);
         ghostChild1TranslationType = system.GetComponentDataFromEntity<Translation>(true);
+        ghostChild2RotationType = system.GetComponentDataFromEntity<Rotation>(true);
+        ghostChild2TranslationType = system.GetComponentDataFromEntity<Translation>(true);
+        ghostChild3RotationType = system.GetComponentDataFromEntity<Rotation>(true);
+        ghostChild3TranslationType = system.GetComponentDataFromEntity<Translation>(true);
     }
 
     public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref AArcherSnapshotData snapshot, GhostSerializerState serializerState)
@@ -71,5 +79,9 @@ public struct AArcherGhostSerializer : IGhostSerializer<AArcherSnapshotData>
         snapshot.SetChild0TranslationValue(ghostChild0TranslationType[chunkDataLinkedEntityGroup[ent][1].Value].Value, serializerState);
         snapshot.SetChild1RotationValue(ghostChild1RotationType[chunkDataLinkedEntityGroup[ent][2].Value].Value, serializerState);
         snapshot.SetChild1TranslationValue(ghostChild1TranslationType[chunkDataLinkedEntityGroup[ent][2].Value].Value, serializerState);
+        snapshot.SetChild2RotationValue(ghostChild2RotationType[chunkDataLinkedEntityGroup[ent][3].Value].Value, serializerState);
+        snapshot.SetChild2TranslationValue(ghostChild2TranslationType[chunkDataLinkedEntityGroup[ent][3].Value].Value, serializerState);
+        snapshot.SetChild3RotationValue(ghostChild3RotationType[chunkDataLinkedEntityGroup[ent][4].Value].Value, serializerState);
+        snapshot.SetChild3TranslationValue(ghostChild3TranslationType[chunkDataLinkedEntityGroup[ent][4].Value].Value, serializerState);
     }
 }

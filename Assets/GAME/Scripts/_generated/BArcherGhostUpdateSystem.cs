@@ -70,6 +70,10 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 var ghostChild0Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
                 var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
+                var ghostChild2Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
+                var ghostChild2Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
+                var ghostChild3Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
+                var ghostChild3Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostUnitSelectionState.IsSelected = snapshotData.GetUnitSelectionStateIsSelected(deserializerState);
                 ghostRotation.Value = snapshotData.GetRotationValue(deserializerState);
@@ -78,12 +82,20 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 ghostChild0Translation.Value = snapshotData.GetChild0TranslationValue(deserializerState);
                 ghostChild1Rotation.Value = snapshotData.GetChild1RotationValue(deserializerState);
                 ghostChild1Translation.Value = snapshotData.GetChild1TranslationValue(deserializerState);
+                ghostChild2Rotation.Value = snapshotData.GetChild2RotationValue(deserializerState);
+                ghostChild2Translation.Value = snapshotData.GetChild2TranslationValue(deserializerState);
+                ghostChild3Rotation.Value = snapshotData.GetChild3RotationValue(deserializerState);
+                ghostChild3Translation.Value = snapshotData.GetChild3TranslationValue(deserializerState);
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostRotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostTranslation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Translation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Translation;
+                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Rotation;
+                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Translation;
+                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Rotation;
+                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Translation;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
                 ghostUnitSelectionStateArray[entityIndex] = ghostUnitSelectionState;
             }
@@ -162,6 +174,10 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 var ghostChild0Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
                 var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
+                var ghostChild2Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
+                var ghostChild2Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
+                var ghostChild3Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
+                var ghostChild3Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostUnitSelectionState.IsSelected = snapshotData.GetUnitSelectionStateIsSelected(deserializerState);
                 ghostRotation.Value = snapshotData.GetRotationValue(deserializerState);
@@ -170,12 +186,20 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 ghostChild0Translation.Value = snapshotData.GetChild0TranslationValue(deserializerState);
                 ghostChild1Rotation.Value = snapshotData.GetChild1RotationValue(deserializerState);
                 ghostChild1Translation.Value = snapshotData.GetChild1TranslationValue(deserializerState);
+                ghostChild2Rotation.Value = snapshotData.GetChild2RotationValue(deserializerState);
+                ghostChild2Translation.Value = snapshotData.GetChild2TranslationValue(deserializerState);
+                ghostChild3Rotation.Value = snapshotData.GetChild3RotationValue(deserializerState);
+                ghostChild3Translation.Value = snapshotData.GetChild3TranslationValue(deserializerState);
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostRotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostTranslation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Translation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Translation;
+                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Rotation;
+                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Translation;
+                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Rotation;
+                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Translation;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
                 ghostUnitSelectionStateArray[entityIndex] = ghostUnitSelectionState;
             }

@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5368508458209473031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748400996394191163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98b5909134c0b444af04b6313b4949a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsSelected: 0
 --- !u!1 &5846582681664407161
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5846582681664407161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1748400996394191167}
@@ -60,6 +47,164 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5846582681664407161}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7ded1e9d0beecb24597d59d735199c53, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &7249869910645107257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4083316268251532224}
+  - component: {fileID: 8906822970264601509}
+  - component: {fileID: 9077556523324922660}
+  m_Layer: 0
+  m_Name: Sphere (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4083316268251532224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249869910645107257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.42}
+  m_LocalScale: {x: 0.7082, y: 0.7082, z: 0.7082}
+  m_Children: []
+  m_Father: {fileID: 1748400996394191167}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8906822970264601509
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249869910645107257}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &9077556523324922660
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249869910645107257}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9af7d050a6c290a4d94dcf2ef4cc1642, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &9164804964870090703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6426399282182020844}
+  - component: {fileID: 4542732441726597167}
+  - component: {fileID: 8795033705095111325}
+  m_Layer: 0
+  m_Name: Sphere (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6426399282182020844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164804964870090703}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.3}
+  m_LocalScale: {x: 0.7082, y: 0.7082, z: 0.7082}
+  m_Children: []
+  m_Father: {fileID: 1748400996394191167}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4542732441726597167
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164804964870090703}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8795033705095111325
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164804964870090703}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -167,7 +312,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.size
-      value: 25
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -207,11 +352,36 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[23].fields.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[24].fields.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].fields.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].fields.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].fields.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].fields.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].fields.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
@@ -277,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[16].name
-      value: Unity.Rendering.PerInstanceCullingTag
+      value: Unity.Entities.Disabled
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -302,7 +472,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[17].name
-      value: Unity.Rendering.RenderBounds
+      value: Unity.Rendering.PerInstanceCullingTag
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -327,7 +497,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[18].name
-      value: Unity.Rendering.RenderMesh
+      value: Unity.Rendering.RenderBounds
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -352,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[19].name
-      value: Unity.Transforms.LocalToParent
+      value: Unity.Rendering.RenderMesh
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -377,7 +547,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[20].name
-      value: Unity.Transforms.LocalToWorld
+      value: Unity.Transforms.LocalToParent
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -402,7 +572,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[21].name
-      value: Unity.Transforms.NonUniformScale
+      value: Unity.Transforms.LocalToWorld
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -442,7 +612,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[22].name
-      value: Unity.Transforms.Parent
+      value: Unity.Transforms.NonUniformScale
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -577,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[23].name
-      value: Unity.Transforms.Rotation
+      value: Unity.Transforms.Parent
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -617,7 +787,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[24].name
-      value: Unity.Transforms.Translation
+      value: Unity.Transforms.Rotation
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -642,7 +812,7 @@ PrefabInstance:
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
       propertyPath: Components.Array.data[24].fields.Array.data[0].quantization
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
         type: 3}
@@ -659,14 +829,558 @@ PrefabInstance:
       propertyPath: SnapshotDataPath
       value: BArcherSnapshotData.cs
       objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].name
+      value: Unity.Transforms.Translation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].fields.Array.data[0].name
+      value: Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].fields.Array.data[0].quantization
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].fields.Array.data[0].interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[25].entityIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[26].name
+      value: Unity.Rendering.PerInstanceCullingTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[26].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[26].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[26].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[26].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[27].name
+      value: Unity.Rendering.RenderBounds
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[27].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[27].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[27].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[27].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[28].name
+      value: Unity.Rendering.RenderMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[28].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[28].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[28].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[28].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[29].name
+      value: Unity.Transforms.LocalToParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[29].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[29].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[29].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[29].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[30].name
+      value: Unity.Transforms.LocalToWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[30].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[30].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[30].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[30].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[31].name
+      value: Unity.Transforms.NonUniformScale
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[31].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[31].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[31].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[31].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[32].name
+      value: Unity.Transforms.Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[32].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[32].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[32].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[32].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].name
+      value: Unity.Transforms.Rotation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].fields.Array.data[0].name
+      value: Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].fields.Array.data[0].quantization
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].fields.Array.data[0].interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[33].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].name
+      value: Unity.Transforms.Translation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].fields.Array.data[0].name
+      value: Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].fields.Array.data[0].quantization
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].fields.Array.data[0].interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[34].entityIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[35].name
+      value: Unity.Rendering.PerInstanceCullingTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[35].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[35].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[35].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[35].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[36].name
+      value: Unity.Rendering.RenderBounds
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[36].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[36].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[36].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[36].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[37].name
+      value: Unity.Rendering.RenderMesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[37].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[37].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[37].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[37].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[38].name
+      value: Unity.Transforms.LocalToParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[38].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[38].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[38].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[38].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[39].name
+      value: Unity.Transforms.LocalToWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[39].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[39].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[39].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[39].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[40].name
+      value: Unity.Transforms.NonUniformScale
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[40].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[40].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[40].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[40].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[41].name
+      value: Unity.Transforms.Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[41].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[41].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[41].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[41].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].name
+      value: Unity.Transforms.Rotation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].fields.Array.data[0].name
+      value: Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].fields.Array.data[0].quantization
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].fields.Array.data[0].interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[42].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].name
+      value: Unity.Transforms.Translation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].interpolatedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].predictedClient
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].server
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].fields.Array.data[0].name
+      value: Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].fields.Array.data[0].quantization
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].fields.Array.data[0].interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940026244449249483, guid: 06544837da7191f4d81c1d7b1f4a91bf,
+        type: 3}
+      propertyPath: Components.Array.data[43].entityIndex
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06544837da7191f4d81c1d7b1f4a91bf, type: 3}
---- !u!1 &1748400996394191163 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2610653280916932604, guid: 06544837da7191f4d81c1d7b1f4a91bf,
-    type: 3}
-  m_PrefabInstance: {fileID: 4357644005471735495}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1748400996394191167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2610653280916932600, guid: 06544837da7191f4d81c1d7b1f4a91bf,

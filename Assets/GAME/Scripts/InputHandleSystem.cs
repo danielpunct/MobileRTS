@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -15,7 +14,7 @@ public class InputHandleSystem : ComponentSystem
         var group = World.GetExistingSystem<GhostPredictionSystemGroup>();
         var tick = group.PredictingTick;
         var deltaTime = Time.DeltaTime;
-
+        
         // for each  input from each client
         Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer, ref PredictedGhostComponent prediction, ref Player player) =>
         {
@@ -65,14 +64,12 @@ public class InputHandleSystem : ComponentSystem
                         {
                             selectionMade = true;
                             PostUpdateCommands.SetComponent(entity, new UnitSelectionState() { IsSelected = true });
-                            GameReferences.Instance.ShowInfo(playerUnit.UnitId);
                         }
                     }
 
                     if(!selectionMade)
                     {
-                        GameReferences.Instance.Clear();
-                    }
+                                           }
                 });
             }
             // if destination input

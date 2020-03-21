@@ -81,6 +81,9 @@ MonoBehaviour:
     - name: PlayerId
       quantization: -1
       interpolate: 0
+    - name: UnitId
+      quantization: -1
+      interpolate: 0
     manualFieldList: 0
     entityIndex: 0
   - name: UnitSelectionState
@@ -474,6 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerId: 0
+  UnitId: 0
 --- !u!114 &2236074890580784113
 MonoBehaviour:
   m_ObjectHideFlags: 0

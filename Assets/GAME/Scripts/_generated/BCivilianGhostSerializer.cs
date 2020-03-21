@@ -64,6 +64,7 @@ public struct BCivilianGhostSerializer : IGhostSerializer<BCivilianSnapshotData>
         var chunkDataTranslation = chunk.GetNativeArray(ghostTranslationType);
         var chunkDataLinkedEntityGroup = chunk.GetBufferAccessor(ghostLinkedEntityGroupType);
         snapshot.SetPlayerUnitPlayerId(chunkDataPlayerUnit[ent].PlayerId, serializerState);
+        snapshot.SetPlayerUnitUnitId(chunkDataPlayerUnit[ent].UnitId, serializerState);
         snapshot.SetUnitSelectionStateIsSelected(chunkDataUnitSelectionState[ent].IsSelected, serializerState);
         snapshot.SetRotationValue(chunkDataRotation[ent].Value, serializerState);
         snapshot.SetTranslationValue(chunkDataTranslation[ent].Value, serializerState);

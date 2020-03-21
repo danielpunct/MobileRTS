@@ -15,6 +15,8 @@ public class UnitsSelectionSystem : JobComponentSystem
         var localPlayerId = GetSingleton<NetworkIdComponent>().Value;
         var ECB = new EntityCommandBuffer(Allocator.Temp);
 
+
+        PlayerUnit? selection = null;
         Entities
              .WithEntityQueryOptions(EntityQueryOptions.IncludeDisabled)
              .ForEach((
@@ -22,9 +24,9 @@ public class UnitsSelectionSystem : JobComponentSystem
           in Parent parent,
           in UnitSelectionVisual selectionVisual) =>
          {
-             var playerId = pu[parent.Value].PlayerId;
+             var playerUnit = pu[parent.Value];
 
-            if(localPlayerId != playerId)
+             if (localPlayerId != playerUnit.PlayerId)
              {
                  return;
              }
@@ -38,12 +40,21 @@ public class UnitsSelectionSystem : JobComponentSystem
              else
              {
                  ECB.RemoveComponent<Disabled>(entity);
+                 selection = playerUnit;
              }
          }).Run();
 
         ECB.Playback(EntityManager);
         ECB.Dispose();
 
+        if (selection != null)
+        {
+            GameReferences.Instance.ShowInfo(selection.Value.UnitId);
+        }
+        else
+        {
+            GameReferences.Instance.Clear();
+        }
         return default;
     }
 }

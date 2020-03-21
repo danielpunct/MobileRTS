@@ -7,5 +7,6 @@ public struct PlayerUnit : IComponentData
     [GhostDefaultField]
     public int PlayerId;
 
+    [GhostDefaultField]
     public int UnitId;
 }

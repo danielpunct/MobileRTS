@@ -71,6 +71,7 @@ public class BCivilianGhostUpdateSystem : JobComponentSystem
                 var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
+                ghostPlayerUnit.UnitId = snapshotData.GetPlayerUnitUnitId(deserializerState);
                 ghostUnitSelectionState.IsSelected = snapshotData.GetUnitSelectionStateIsSelected(deserializerState);
                 ghostRotation.Value = snapshotData.GetRotationValue(deserializerState);
                 ghostTranslation.Value = snapshotData.GetTranslationValue(deserializerState);
@@ -163,6 +164,7 @@ public class BCivilianGhostUpdateSystem : JobComponentSystem
                 var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
+                ghostPlayerUnit.UnitId = snapshotData.GetPlayerUnitUnitId(deserializerState);
                 ghostUnitSelectionState.IsSelected = snapshotData.GetUnitSelectionStateIsSelected(deserializerState);
                 ghostRotation.Value = snapshotData.GetRotationValue(deserializerState);
                 ghostTranslation.Value = snapshotData.GetTranslationValue(deserializerState);

@@ -69,6 +69,8 @@ public class SamplePlayerInput : ComponentSystem
     Vector3 startPoint = Vector3.zero;
     Vector3 endPoint = Vector3.zero;
 
+    bool hasSelection;
+
     protected override void OnCreate()
     {
         RequireSingletonForUpdate<NetworkIdComponent>();
@@ -77,11 +79,11 @@ public class SamplePlayerInput : ComponentSystem
 
     protected override void OnUpdate()
     {
+        var localPlayerId = GetSingleton<NetworkIdComponent>().Value;
         var localInput = GetSingleton<CommandTargetComponent>().targetEntity;
 
         if (localInput == Entity.Null)
         {
-            var localPlayerId = GetSingleton<NetworkIdComponent>().Value;
             Entities.WithNone<PlayerInput>().ForEach((Entity ent, ref Player player) =>
             {
                 if (player.PlayerId == localPlayerId)
@@ -132,29 +134,51 @@ public class SamplePlayerInput : ComponentSystem
             {
                 endPoint = ray.GetPoint(dist);
 
-
-                input.selectionX1 = startPoint.x;
-                input.selectionZ1 = startPoint.z;
-                input.selectionX2 = endPoint.x;
-                input.selectionZ2 = endPoint.z;
-
-            }
-        }
-
-        if (Input.GetMouseButtonUp(1))
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (GameReferences.Instance.raycastPlane.Raycast(ray, out var dist))
-            {
-                var d = ray.GetPoint(dist);
-
-                input.destinationX = d.x;
-                input.destinationZ = d.z;
+                if (SelectionIsValid())
+                {
+                    SetSelection(ref input);
+                }
+                else
+                {
+                    if (hasSelection)
+                    {
+                        SetDestination(ref input);
+                        GameReferences.Instance.ConsumeBuildEvent();
+                    }
+                }
             }
         }
 
         var inputBuffer = EntityManager.GetBuffer<PlayerInput>(localInput);
         inputBuffer.AddCommandData(input);
+    }
+
+    public void SetDestination(ref PlayerInput input)
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (GameReferences.Instance.raycastPlane.Raycast(ray, out var dist))
+        {
+            var d = ray.GetPoint(dist);
+
+            input.destinationX = d.x;
+            input.destinationZ = d.z;
+        }
+    }
+
+    public bool SetSelection(ref PlayerInput input)
+    {
+        input.selectionX1 = startPoint.x;
+        input.selectionZ1 = startPoint.z;
+        input.selectionX2 = endPoint.x;
+        input.selectionZ2 = endPoint.z;
+
+        hasSelection = true;
+        return true;
+    }
+
+    bool SelectionIsValid()
+    {
+        return Vector3.SqrMagnitude(endPoint - startPoint) > 0.1f;
     }
 }

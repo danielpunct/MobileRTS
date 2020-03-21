@@ -19,7 +19,6 @@ public class InputHandleSystem : ComponentSystem
         // for each  input from each client
         Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer, ref PredictedGhostComponent prediction, ref Player player) =>
         {
-
             if (!GhostPredictionSystemGroup.ShouldPredict(tick, prediction))
             {
                 Debug.Log("discarted");
@@ -43,10 +42,16 @@ public class InputHandleSystem : ComponentSystem
             if (selectionInput)
             {
                 // deselect all units // not at all optimal
-                Entities.ForEach((Entity entity, ref UnitSelectionState selectionState) =>
+                Entities.ForEach((Entity entity, ref UnitSelectionState selectionState, ref PlayerUnit playerUnit) =>
                 {
-                    PostUpdateCommands.SetComponent(entity, new UnitSelectionState());
+                    if (playerUnit.PlayerId == playerId)
+                    {
+                        PostUpdateCommands.SetComponent(entity, new UnitSelectionState());
+                    }
                 });
+
+
+                bool selectionMade = false;
 
                 // for each unit of client
                 Entities.ForEach((Entity entity, ref Translation unitTrans, ref PlayerUnit playerUnit) =>
@@ -58,9 +63,15 @@ public class InputHandleSystem : ComponentSystem
                             minZ <= unitTrans.Value.z &&
                             maxZ >= unitTrans.Value.z)
                         {
+                            selectionMade = true;
                             PostUpdateCommands.SetComponent(entity, new UnitSelectionState() { IsSelected = true });
                             GameReferences.Instance.ShowInfo(playerUnit.UnitId);
                         }
+                    }
+
+                    if(!selectionMade)
+                    {
+                        GameReferences.Instance.Clear();
                     }
                 });
             }
@@ -70,9 +81,9 @@ public class InputHandleSystem : ComponentSystem
                 var destination = new float3(input.destinationX, 0, input.destinationZ);
                 var positions = GetPositionListAround(destination);
                 int positionIndex = 0;
-                Entities.ForEach((Entity entity, ref MoveTo moveTo, ref UnitSelectionState selectionState) =>
+                Entities.ForEach((Entity entity, ref MoveTo moveTo, ref UnitSelectionState selectionState, ref PlayerUnit playerUnit) =>
                 {
-                    if (selectionState.IsSelected)
+                    if (selectionState.IsSelected && playerUnit.PlayerId == playerId)
                     {
                         moveTo.position = positions[positionIndex++];
                         moveTo.move = true;

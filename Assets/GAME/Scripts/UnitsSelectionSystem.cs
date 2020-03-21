@@ -1,5 +1,4 @@
-﻿using Unity.Burst;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.NetCode;
@@ -11,6 +10,9 @@ public class UnitsSelectionSystem : JobComponentSystem
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
         var us = GetComponentDataFromEntity<UnitSelectionState>(true);
+        var pu = GetComponentDataFromEntity<PlayerUnit>(true);
+
+        var localPlayerId = GetSingleton<NetworkIdComponent>().Value;
         var ECB = new EntityCommandBuffer(Allocator.Temp);
 
         Entities
@@ -20,6 +22,13 @@ public class UnitsSelectionSystem : JobComponentSystem
           in Parent parent,
           in UnitSelectionVisual selectionVisual) =>
          {
+             var playerId = pu[parent.Value].PlayerId;
+
+            if(localPlayerId != playerId)
+             {
+                 return;
+             }
+
              var sel = us[parent.Value].IsSelected;
 
              if (!sel)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Lean.Touch;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.NetCode;
@@ -98,8 +99,9 @@ public class SamplePlayerInput : ComponentSystem
         var input = default(PlayerInput);
         input.tick = World.GetExistingSystem<ClientSimulationSystemGroup>().ServerTick;
 
+        var fingers = LeanTouch.GetFingers(true, false);
 
-        if (Input.GetMouseButtonDown(0))
+        if ( fingers.Count ==1 && fingers[0].Down)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -111,7 +113,7 @@ public class SamplePlayerInput : ComponentSystem
             }
         }
 
-        if (Input.GetMouseButton(0))
+        if (fingers.Count ==1 && fingers[0].Set)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -125,7 +127,7 @@ public class SamplePlayerInput : ComponentSystem
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (fingers.Count ==1 && fingers[0].Up)
         {
             GameReferences.Instance.selection.gameObject.SetActive(false);
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);

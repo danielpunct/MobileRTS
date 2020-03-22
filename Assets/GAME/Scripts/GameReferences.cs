@@ -18,7 +18,7 @@ public class GameReferences : MonoBehaviour
     public Transform selection;
 
     public TMP_Text selectionTitle;
-    public Button buildButton;
+    public GameObject buildButton;
 
     public bool pendingBuild = false;
 

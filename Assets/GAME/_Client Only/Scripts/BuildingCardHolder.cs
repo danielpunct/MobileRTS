@@ -27,7 +27,7 @@ public class BuildingCardHolder : MonoBehaviour
     {
         if (isLocked)
         {
-            MapInteractions.Instance.UpdateBuildingPreview(false);
+            MapInteractions.Instance.UpdateBuildingPreview(false, obj.GetRay(), true); // must swith layer !obj.IsOverGui);
         }
 
         isLocked = false;

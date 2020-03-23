@@ -27,6 +27,7 @@ public class InputHandleSystem : ComponentSystem
 
             var playerId = player.PlayerId;
             var selectionInput = false;
+            bool buildInput = false;
 
             float minX = math.min(input.selectionX1, input.selectionX2);
             float maxX = math.max(input.selectionX1, input.selectionX2);
@@ -38,7 +39,29 @@ public class InputHandleSystem : ComponentSystem
                 selectionInput = true;
             }
 
-            if (selectionInput)
+            if(input.buildX != 0 || input.buildZ != 0)
+            {
+                buildInput = true;
+            }
+
+            if (buildInput)
+            {
+
+                var firstPlayer = player.PlayerId == 1;
+                var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
+                var ghostId = firstPlayer
+                    ? MobileRTSGhostSerializerCollection.FindGhostType<A_BarracksSnapshotData>()
+                    : MobileRTSGhostSerializerCollection.FindGhostType<B_BarracksSnapshotData>();
+                var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId].Value;
+                var building = EntityManager.Instantiate(prefab);
+                EntityManager.SetComponentData(building, new PlayerUnit { PlayerId = player.PlayerId });
+                EntityManager.SetComponentData(building, new Translation
+                {
+                    Value = new float3(input.buildX, 0, input.buildZ)
+                });
+
+            }
+            else if (selectionInput)
             {
                 // deselect all units // not at all optimal
                 Entities.ForEach((Entity entity, ref UnitSelectionState selectionState, ref PlayerUnit playerUnit) =>
@@ -48,9 +71,6 @@ public class InputHandleSystem : ComponentSystem
                         PostUpdateCommands.SetComponent(entity, new UnitSelectionState());
                     }
                 });
-
-
-                bool selectionMade = false;
 
                 // for each unit of client
                 Entities.ForEach((Entity entity, ref Translation unitTrans, ref PlayerUnit playerUnit) =>
@@ -62,14 +82,9 @@ public class InputHandleSystem : ComponentSystem
                             minZ <= unitTrans.Value.z &&
                             maxZ >= unitTrans.Value.z)
                         {
-                            selectionMade = true;
                             PostUpdateCommands.SetComponent(entity, new UnitSelectionState() { IsSelected = true });
                         }
                     }
-
-                    if(!selectionMade)
-                    {
-                                           }
                 });
             }
             // if destination input

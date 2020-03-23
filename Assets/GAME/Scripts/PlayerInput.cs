@@ -7,6 +7,12 @@ using UnityEngine;
 public struct PlayerInput : ICommandData<PlayerInput>
 {
     public uint tick;
+
+
+    public float buildX;
+    public float buildZ;
+
+
     public float destinationX;
     public float destinationZ;
 
@@ -27,6 +33,9 @@ public struct PlayerInput : ICommandData<PlayerInput>
     {
         this.tick = tick;
 
+        buildX = reader.ReadFloat();
+        buildZ = reader.ReadFloat();
+        
         destinationX = reader.ReadFloat();
         destinationZ = reader.ReadFloat();
 
@@ -43,6 +52,9 @@ public struct PlayerInput : ICommandData<PlayerInput>
 
     public void Serialize(ref DataStreamWriter writer)
     {
+        writer.WriteFloat(buildX);
+        writer.WriteFloat(buildZ);
+        
         writer.WriteFloat(destinationX);
         writer.WriteFloat(destinationZ);
         writer.WriteFloat(selectionX1);
@@ -147,6 +159,13 @@ public class SamplePlayerInput : ComponentSystem
                     }
                 }
             }
+        }
+
+        // add build input
+        if(MapInteractions.Instance.GetPendingInput(out var buildInput))
+        {
+            input.buildX = buildInput.x;
+            input.buildZ = buildInput.z;
         }
 
         var inputBuffer = EntityManager.GetBuffer<PlayerInput>(localInput);

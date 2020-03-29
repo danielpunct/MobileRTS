@@ -14,6 +14,7 @@ public class InputHandleSystem : ComponentSystem
         var group = World.GetExistingSystem<GhostPredictionSystemGroup>();
         var tick = group.PredictingTick;
         var deltaTime = Time.DeltaTime;
+        var time = UnityEngine.Time.time;
         
         // for each  input from each client
         Entities.ForEach((DynamicBuffer<PlayerInput> inputBuffer, ref PredictedGhostComponent prediction, ref Player player) =>
@@ -59,6 +60,12 @@ public class InputHandleSystem : ComponentSystem
                     Value = new float3(input.buildX, 0, input.buildZ)
                 });
                 EntityManager.SetComponentData(building, new Health { Value = 100 });
+                EntityManager.AddComponentData(building, new Archery
+                {
+                    ProducedAt = time
+                });
+
+                input.buildX = input.buildZ = 0;
             }
             else if (selectionInput)
             {

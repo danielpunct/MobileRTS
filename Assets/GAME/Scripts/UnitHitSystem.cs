@@ -28,8 +28,7 @@ public class UnitHitSystem : JobComponentSystem
                 if (distance < 2)
                 {
                     // move the removal in another system?
-                    var new_health =  unitsHealth[i].Value- 10;
-                    UnityEngine.Debug.Log("take");
+                    var new_health = unitsHealth[i].Value - 10;
                     if (new_health > 0)
                     {
                         ECB.SetComponent(entityes_native[i], new Health { Value = new_health });

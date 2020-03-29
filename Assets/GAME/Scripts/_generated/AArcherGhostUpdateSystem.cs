@@ -24,6 +24,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
 #endif
         [ReadOnly] public ArchetypeChunkBufferType<AArcherSnapshotData> ghostSnapshotDataType;
         [ReadOnly] public ArchetypeChunkEntityType ghostEntityType;
+        public ArchetypeChunkComponentType<Health> ghostHealthType;
         public ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
         public ArchetypeChunkComponentType<UnitSelectionState> ghostUnitSelectionStateType;
         [ReadOnly] public ArchetypeChunkBufferType<LinkedEntityGroup> ghostLinkedEntityGroupType;
@@ -40,6 +41,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
             };
             var ghostEntityArray = chunk.GetNativeArray(ghostEntityType);
             var ghostSnapshotDataArray = chunk.GetBufferAccessor(ghostSnapshotDataType);
+            var ghostHealthArray = chunk.GetNativeArray(ghostHealthType);
             var ghostPlayerUnitArray = chunk.GetNativeArray(ghostPlayerUnitType);
             var ghostUnitSelectionStateArray = chunk.GetNativeArray(ghostUnitSelectionStateType);
             var ghostLinkedEntityGroupArray = chunk.GetBufferAccessor(ghostLinkedEntityGroupType);
@@ -62,6 +64,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 AArcherSnapshotData snapshotData;
                 snapshot.GetDataAtTick(targetTick, targetTickFraction, out snapshotData);
 
+                var ghostHealth = ghostHealthArray[entityIndex];
                 var ghostPlayerUnit = ghostPlayerUnitArray[entityIndex];
                 var ghostUnitSelectionState = ghostUnitSelectionStateArray[entityIndex];
                 var ghostRotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value];
@@ -74,6 +77,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 var ghostChild2Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
                 var ghostChild3Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
                 var ghostChild3Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
+                ghostHealth.Value = snapshotData.GetHealthValue(deserializerState);
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostPlayerUnit.UnitId = snapshotData.GetPlayerUnitUnitId(deserializerState);
                 ghostUnitSelectionState.IsSelected = snapshotData.GetUnitSelectionStateIsSelected(deserializerState);
@@ -97,6 +101,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Translation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Translation;
+                ghostHealthArray[entityIndex] = ghostHealth;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
                 ghostUnitSelectionStateArray[entityIndex] = ghostUnitSelectionState;
             }
@@ -117,6 +122,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
         [ReadOnly] public ArchetypeChunkBufferType<AArcherSnapshotData> ghostSnapshotDataType;
         [ReadOnly] public ArchetypeChunkEntityType ghostEntityType;
         public ArchetypeChunkComponentType<PredictedGhostComponent> predictedGhostComponentType;
+        public ArchetypeChunkComponentType<Health> ghostHealthType;
         public ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
         public ArchetypeChunkComponentType<UnitSelectionState> ghostUnitSelectionStateType;
         [ReadOnly] public ArchetypeChunkBufferType<LinkedEntityGroup> ghostLinkedEntityGroupType;
@@ -133,6 +139,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
             var ghostEntityArray = chunk.GetNativeArray(ghostEntityType);
             var ghostSnapshotDataArray = chunk.GetBufferAccessor(ghostSnapshotDataType);
             var predictedGhostComponentArray = chunk.GetNativeArray(predictedGhostComponentType);
+            var ghostHealthArray = chunk.GetNativeArray(ghostHealthType);
             var ghostPlayerUnitArray = chunk.GetNativeArray(ghostPlayerUnitType);
             var ghostUnitSelectionStateArray = chunk.GetNativeArray(ghostUnitSelectionStateType);
             var ghostLinkedEntityGroupArray = chunk.GetBufferAccessor(ghostLinkedEntityGroupType);
@@ -167,6 +174,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 if (lastPredictedTickInst != snapshotData.Tick)
                     continue;
 
+                var ghostHealth = ghostHealthArray[entityIndex];
                 var ghostPlayerUnit = ghostPlayerUnitArray[entityIndex];
                 var ghostUnitSelectionState = ghostUnitSelectionStateArray[entityIndex];
                 var ghostRotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value];
@@ -179,6 +187,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 var ghostChild2Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
                 var ghostChild3Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
                 var ghostChild3Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
+                ghostHealth.Value = snapshotData.GetHealthValue(deserializerState);
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostPlayerUnit.UnitId = snapshotData.GetPlayerUnitUnitId(deserializerState);
                 ghostUnitSelectionState.IsSelected = snapshotData.GetUnitSelectionStateIsSelected(deserializerState);
@@ -202,6 +211,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Translation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Translation;
+                ghostHealthArray[entityIndex] = ghostHealth;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
                 ghostUnitSelectionStateArray[entityIndex] = ghostUnitSelectionState;
             }
@@ -231,6 +241,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
             All = new []{
                 ComponentType.ReadWrite<AArcherSnapshotData>(),
                 ComponentType.ReadOnly<GhostComponent>(),
+                ComponentType.ReadWrite<Health>(),
                 ComponentType.ReadWrite<PlayerUnit>(),
                 ComponentType.ReadWrite<UnitSelectionState>(),
                 ComponentType.ReadOnly<LinkedEntityGroup>(),
@@ -243,6 +254,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 ComponentType.ReadOnly<AArcherSnapshotData>(),
                 ComponentType.ReadOnly<GhostComponent>(),
                 ComponentType.ReadOnly<PredictedGhostComponent>(),
+                ComponentType.ReadWrite<Health>(),
                 ComponentType.ReadWrite<PlayerUnit>(),
                 ComponentType.ReadWrite<UnitSelectionState>(),
                 ComponentType.ReadOnly<LinkedEntityGroup>(),
@@ -265,6 +277,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
                 ghostSnapshotDataType = GetArchetypeChunkBufferType<AArcherSnapshotData>(true),
                 ghostEntityType = GetArchetypeChunkEntityType(),
                 predictedGhostComponentType = GetArchetypeChunkComponentType<PredictedGhostComponent>(),
+                ghostHealthType = GetArchetypeChunkComponentType<Health>(),
                 ghostPlayerUnitType = GetArchetypeChunkComponentType<PlayerUnit>(),
                 ghostUnitSelectionStateType = GetArchetypeChunkComponentType<UnitSelectionState>(),
                 ghostLinkedEntityGroupType = GetArchetypeChunkBufferType<LinkedEntityGroup>(true),
@@ -290,6 +303,7 @@ public class AArcherGhostUpdateSystem : JobComponentSystem
 #endif
                 ghostSnapshotDataType = GetArchetypeChunkBufferType<AArcherSnapshotData>(true),
                 ghostEntityType = GetArchetypeChunkEntityType(),
+                ghostHealthType = GetArchetypeChunkComponentType<Health>(),
                 ghostPlayerUnitType = GetArchetypeChunkComponentType<PlayerUnit>(),
                 ghostUnitSelectionStateType = GetArchetypeChunkComponentType<UnitSelectionState>(),
                 ghostLinkedEntityGroupType = GetArchetypeChunkBufferType<LinkedEntityGroup>(true),

@@ -5,6 +5,7 @@ using Unity.Mathematics;
 public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
 {
     public uint tick;
+    private int HealthValue;
     private int PlayerUnitPlayerId;
     private int PlayerUnitUnitId;
     private uint UnitSelectionStateIsSelected;
@@ -32,6 +33,22 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
     uint changeMask0;
 
     public uint Tick => tick;
+    public float GetHealthValue(GhostDeserializerState deserializerState)
+    {
+        return HealthValue * 0.01f;
+    }
+    public float GetHealthValue()
+    {
+        return HealthValue * 0.01f;
+    }
+    public void SetHealthValue(float val, GhostSerializerState serializerState)
+    {
+        HealthValue = (int)(val * 100);
+    }
+    public void SetHealthValue(float val)
+    {
+        HealthValue = (int)(val * 100);
+    }
     public int GetPlayerUnitPlayerId(GhostDeserializerState deserializerState)
     {
         return (int)PlayerUnitPlayerId;
@@ -195,6 +212,7 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
     public void PredictDelta(uint tick, ref BCivilianSnapshotData baseline1, ref BCivilianSnapshotData baseline2)
     {
         var predictor = new GhostDeltaPredictor(tick, this.tick, baseline1.tick, baseline2.tick);
+        HealthValue = predictor.PredictInt(HealthValue, baseline1.HealthValue, baseline2.HealthValue);
         PlayerUnitPlayerId = predictor.PredictInt(PlayerUnitPlayerId, baseline1.PlayerUnitPlayerId, baseline2.PlayerUnitPlayerId);
         PlayerUnitUnitId = predictor.PredictInt(PlayerUnitUnitId, baseline1.PlayerUnitUnitId, baseline2.PlayerUnitUnitId);
         UnitSelectionStateIsSelected = (uint)predictor.PredictInt((int)UnitSelectionStateIsSelected, (int)baseline1.UnitSelectionStateIsSelected, (int)baseline2.UnitSelectionStateIsSelected);
@@ -223,71 +241,74 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
 
     public void Serialize(int networkId, ref BCivilianSnapshotData baseline, ref DataStreamWriter writer, NetworkCompressionModel compressionModel)
     {
-        changeMask0 = (PlayerUnitPlayerId != baseline.PlayerUnitPlayerId) ? 1u : 0;
-        changeMask0 |= (PlayerUnitUnitId != baseline.PlayerUnitUnitId) ? (1u<<1) : 0;
-        changeMask0 |= (UnitSelectionStateIsSelected != baseline.UnitSelectionStateIsSelected) ? (1u<<2) : 0;
+        changeMask0 = (HealthValue != baseline.HealthValue) ? 1u : 0;
+        changeMask0 |= (PlayerUnitPlayerId != baseline.PlayerUnitPlayerId) ? (1u<<1) : 0;
+        changeMask0 |= (PlayerUnitUnitId != baseline.PlayerUnitUnitId) ? (1u<<2) : 0;
+        changeMask0 |= (UnitSelectionStateIsSelected != baseline.UnitSelectionStateIsSelected) ? (1u<<3) : 0;
         changeMask0 |= (RotationValueX != baseline.RotationValueX ||
                                            RotationValueY != baseline.RotationValueY ||
                                            RotationValueZ != baseline.RotationValueZ ||
-                                           RotationValueW != baseline.RotationValueW) ? (1u<<3) : 0;
+                                           RotationValueW != baseline.RotationValueW) ? (1u<<4) : 0;
         changeMask0 |= (TranslationValueX != baseline.TranslationValueX ||
                                            TranslationValueY != baseline.TranslationValueY ||
-                                           TranslationValueZ != baseline.TranslationValueZ) ? (1u<<4) : 0;
+                                           TranslationValueZ != baseline.TranslationValueZ) ? (1u<<5) : 0;
         changeMask0 |= (Child0RotationValueX != baseline.Child0RotationValueX ||
                                            Child0RotationValueY != baseline.Child0RotationValueY ||
                                            Child0RotationValueZ != baseline.Child0RotationValueZ ||
-                                           Child0RotationValueW != baseline.Child0RotationValueW) ? (1u<<5) : 0;
+                                           Child0RotationValueW != baseline.Child0RotationValueW) ? (1u<<6) : 0;
         changeMask0 |= (Child0TranslationValueX != baseline.Child0TranslationValueX ||
                                            Child0TranslationValueY != baseline.Child0TranslationValueY ||
-                                           Child0TranslationValueZ != baseline.Child0TranslationValueZ) ? (1u<<6) : 0;
+                                           Child0TranslationValueZ != baseline.Child0TranslationValueZ) ? (1u<<7) : 0;
         changeMask0 |= (Child1RotationValueX != baseline.Child1RotationValueX ||
                                            Child1RotationValueY != baseline.Child1RotationValueY ||
                                            Child1RotationValueZ != baseline.Child1RotationValueZ ||
-                                           Child1RotationValueW != baseline.Child1RotationValueW) ? (1u<<7) : 0;
+                                           Child1RotationValueW != baseline.Child1RotationValueW) ? (1u<<8) : 0;
         changeMask0 |= (Child1TranslationValueX != baseline.Child1TranslationValueX ||
                                            Child1TranslationValueY != baseline.Child1TranslationValueY ||
-                                           Child1TranslationValueZ != baseline.Child1TranslationValueZ) ? (1u<<8) : 0;
+                                           Child1TranslationValueZ != baseline.Child1TranslationValueZ) ? (1u<<9) : 0;
         writer.WritePackedUIntDelta(changeMask0, baseline.changeMask0, compressionModel);
         if ((changeMask0 & (1 << 0)) != 0)
-            writer.WritePackedIntDelta(PlayerUnitPlayerId, baseline.PlayerUnitPlayerId, compressionModel);
+            writer.WritePackedIntDelta(HealthValue, baseline.HealthValue, compressionModel);
         if ((changeMask0 & (1 << 1)) != 0)
-            writer.WritePackedIntDelta(PlayerUnitUnitId, baseline.PlayerUnitUnitId, compressionModel);
+            writer.WritePackedIntDelta(PlayerUnitPlayerId, baseline.PlayerUnitPlayerId, compressionModel);
         if ((changeMask0 & (1 << 2)) != 0)
-            writer.WritePackedUIntDelta(UnitSelectionStateIsSelected, baseline.UnitSelectionStateIsSelected, compressionModel);
+            writer.WritePackedIntDelta(PlayerUnitUnitId, baseline.PlayerUnitUnitId, compressionModel);
         if ((changeMask0 & (1 << 3)) != 0)
+            writer.WritePackedUIntDelta(UnitSelectionStateIsSelected, baseline.UnitSelectionStateIsSelected, compressionModel);
+        if ((changeMask0 & (1 << 4)) != 0)
         {
             writer.WritePackedIntDelta(RotationValueX, baseline.RotationValueX, compressionModel);
             writer.WritePackedIntDelta(RotationValueY, baseline.RotationValueY, compressionModel);
             writer.WritePackedIntDelta(RotationValueZ, baseline.RotationValueZ, compressionModel);
             writer.WritePackedIntDelta(RotationValueW, baseline.RotationValueW, compressionModel);
         }
-        if ((changeMask0 & (1 << 4)) != 0)
+        if ((changeMask0 & (1 << 5)) != 0)
         {
             writer.WritePackedIntDelta(TranslationValueX, baseline.TranslationValueX, compressionModel);
             writer.WritePackedIntDelta(TranslationValueY, baseline.TranslationValueY, compressionModel);
             writer.WritePackedIntDelta(TranslationValueZ, baseline.TranslationValueZ, compressionModel);
         }
-        if ((changeMask0 & (1 << 5)) != 0)
+        if ((changeMask0 & (1 << 6)) != 0)
         {
             writer.WritePackedIntDelta(Child0RotationValueX, baseline.Child0RotationValueX, compressionModel);
             writer.WritePackedIntDelta(Child0RotationValueY, baseline.Child0RotationValueY, compressionModel);
             writer.WritePackedIntDelta(Child0RotationValueZ, baseline.Child0RotationValueZ, compressionModel);
             writer.WritePackedIntDelta(Child0RotationValueW, baseline.Child0RotationValueW, compressionModel);
         }
-        if ((changeMask0 & (1 << 6)) != 0)
+        if ((changeMask0 & (1 << 7)) != 0)
         {
             writer.WritePackedIntDelta(Child0TranslationValueX, baseline.Child0TranslationValueX, compressionModel);
             writer.WritePackedIntDelta(Child0TranslationValueY, baseline.Child0TranslationValueY, compressionModel);
             writer.WritePackedIntDelta(Child0TranslationValueZ, baseline.Child0TranslationValueZ, compressionModel);
         }
-        if ((changeMask0 & (1 << 7)) != 0)
+        if ((changeMask0 & (1 << 8)) != 0)
         {
             writer.WritePackedIntDelta(Child1RotationValueX, baseline.Child1RotationValueX, compressionModel);
             writer.WritePackedIntDelta(Child1RotationValueY, baseline.Child1RotationValueY, compressionModel);
             writer.WritePackedIntDelta(Child1RotationValueZ, baseline.Child1RotationValueZ, compressionModel);
             writer.WritePackedIntDelta(Child1RotationValueW, baseline.Child1RotationValueW, compressionModel);
         }
-        if ((changeMask0 & (1 << 8)) != 0)
+        if ((changeMask0 & (1 << 9)) != 0)
         {
             writer.WritePackedIntDelta(Child1TranslationValueX, baseline.Child1TranslationValueX, compressionModel);
             writer.WritePackedIntDelta(Child1TranslationValueY, baseline.Child1TranslationValueY, compressionModel);
@@ -301,18 +322,22 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
         this.tick = tick;
         changeMask0 = reader.ReadPackedUIntDelta(baseline.changeMask0, compressionModel);
         if ((changeMask0 & (1 << 0)) != 0)
+            HealthValue = reader.ReadPackedIntDelta(baseline.HealthValue, compressionModel);
+        else
+            HealthValue = baseline.HealthValue;
+        if ((changeMask0 & (1 << 1)) != 0)
             PlayerUnitPlayerId = reader.ReadPackedIntDelta(baseline.PlayerUnitPlayerId, compressionModel);
         else
             PlayerUnitPlayerId = baseline.PlayerUnitPlayerId;
-        if ((changeMask0 & (1 << 1)) != 0)
+        if ((changeMask0 & (1 << 2)) != 0)
             PlayerUnitUnitId = reader.ReadPackedIntDelta(baseline.PlayerUnitUnitId, compressionModel);
         else
             PlayerUnitUnitId = baseline.PlayerUnitUnitId;
-        if ((changeMask0 & (1 << 2)) != 0)
+        if ((changeMask0 & (1 << 3)) != 0)
             UnitSelectionStateIsSelected = reader.ReadPackedUIntDelta(baseline.UnitSelectionStateIsSelected, compressionModel);
         else
             UnitSelectionStateIsSelected = baseline.UnitSelectionStateIsSelected;
-        if ((changeMask0 & (1 << 3)) != 0)
+        if ((changeMask0 & (1 << 4)) != 0)
         {
             RotationValueX = reader.ReadPackedIntDelta(baseline.RotationValueX, compressionModel);
             RotationValueY = reader.ReadPackedIntDelta(baseline.RotationValueY, compressionModel);
@@ -326,7 +351,7 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
             RotationValueZ = baseline.RotationValueZ;
             RotationValueW = baseline.RotationValueW;
         }
-        if ((changeMask0 & (1 << 4)) != 0)
+        if ((changeMask0 & (1 << 5)) != 0)
         {
             TranslationValueX = reader.ReadPackedIntDelta(baseline.TranslationValueX, compressionModel);
             TranslationValueY = reader.ReadPackedIntDelta(baseline.TranslationValueY, compressionModel);
@@ -338,7 +363,7 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
             TranslationValueY = baseline.TranslationValueY;
             TranslationValueZ = baseline.TranslationValueZ;
         }
-        if ((changeMask0 & (1 << 5)) != 0)
+        if ((changeMask0 & (1 << 6)) != 0)
         {
             Child0RotationValueX = reader.ReadPackedIntDelta(baseline.Child0RotationValueX, compressionModel);
             Child0RotationValueY = reader.ReadPackedIntDelta(baseline.Child0RotationValueY, compressionModel);
@@ -352,7 +377,7 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
             Child0RotationValueZ = baseline.Child0RotationValueZ;
             Child0RotationValueW = baseline.Child0RotationValueW;
         }
-        if ((changeMask0 & (1 << 6)) != 0)
+        if ((changeMask0 & (1 << 7)) != 0)
         {
             Child0TranslationValueX = reader.ReadPackedIntDelta(baseline.Child0TranslationValueX, compressionModel);
             Child0TranslationValueY = reader.ReadPackedIntDelta(baseline.Child0TranslationValueY, compressionModel);
@@ -364,7 +389,7 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
             Child0TranslationValueY = baseline.Child0TranslationValueY;
             Child0TranslationValueZ = baseline.Child0TranslationValueZ;
         }
-        if ((changeMask0 & (1 << 7)) != 0)
+        if ((changeMask0 & (1 << 8)) != 0)
         {
             Child1RotationValueX = reader.ReadPackedIntDelta(baseline.Child1RotationValueX, compressionModel);
             Child1RotationValueY = reader.ReadPackedIntDelta(baseline.Child1RotationValueY, compressionModel);
@@ -378,7 +403,7 @@ public struct BCivilianSnapshotData : ISnapshotData<BCivilianSnapshotData>
             Child1RotationValueZ = baseline.Child1RotationValueZ;
             Child1RotationValueW = baseline.Child1RotationValueW;
         }
-        if ((changeMask0 & (1 << 8)) != 0)
+        if ((changeMask0 & (1 << 9)) != 0)
         {
             Child1TranslationValueX = reader.ReadPackedIntDelta(baseline.Child1TranslationValueX, compressionModel);
             Child1TranslationValueY = reader.ReadPackedIntDelta(baseline.Child1TranslationValueY, compressionModel);

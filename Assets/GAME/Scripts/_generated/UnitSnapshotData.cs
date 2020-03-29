@@ -2,7 +2,7 @@ using Unity.Networking.Transport;
 using Unity.NetCode;
 using Unity.Mathematics;
 
-public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
+public struct _UnitSnapshotData : ISnapshotData<_UnitSnapshotData>
 {
     public uint tick;
     private int HealthValue;
@@ -23,13 +23,6 @@ public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
     private int Child0TranslationValueX;
     private int Child0TranslationValueY;
     private int Child0TranslationValueZ;
-    private int Child1RotationValueX;
-    private int Child1RotationValueY;
-    private int Child1RotationValueZ;
-    private int Child1RotationValueW;
-    private int Child1TranslationValueX;
-    private int Child1TranslationValueY;
-    private int Child1TranslationValueZ;
     uint changeMask0;
 
     public uint Tick => tick;
@@ -171,45 +164,8 @@ public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
         Child0TranslationValueY = (int)(val.y * 100);
         Child0TranslationValueZ = (int)(val.z * 100);
     }
-    public quaternion GetChild1RotationValue(GhostDeserializerState deserializerState)
-    {
-        return GetChild1RotationValue();
-    }
-    public quaternion GetChild1RotationValue()
-    {
-        return new quaternion(Child1RotationValueX * 0.001f, Child1RotationValueY * 0.001f, Child1RotationValueZ * 0.001f, Child1RotationValueW * 0.001f);
-    }
-    public void SetChild1RotationValue(quaternion q, GhostSerializerState serializerState)
-    {
-        SetChild1RotationValue(q);
-    }
-    public void SetChild1RotationValue(quaternion q)
-    {
-        Child1RotationValueX = (int)(q.value.x * 1000);
-        Child1RotationValueY = (int)(q.value.y * 1000);
-        Child1RotationValueZ = (int)(q.value.z * 1000);
-        Child1RotationValueW = (int)(q.value.w * 1000);
-    }
-    public float3 GetChild1TranslationValue(GhostDeserializerState deserializerState)
-    {
-        return GetChild1TranslationValue();
-    }
-    public float3 GetChild1TranslationValue()
-    {
-        return new float3(Child1TranslationValueX * 0.01f, Child1TranslationValueY * 0.01f, Child1TranslationValueZ * 0.01f);
-    }
-    public void SetChild1TranslationValue(float3 val, GhostSerializerState serializerState)
-    {
-        SetChild1TranslationValue(val);
-    }
-    public void SetChild1TranslationValue(float3 val)
-    {
-        Child1TranslationValueX = (int)(val.x * 100);
-        Child1TranslationValueY = (int)(val.y * 100);
-        Child1TranslationValueZ = (int)(val.z * 100);
-    }
 
-    public void PredictDelta(uint tick, ref ACivilianSnapshotData baseline1, ref ACivilianSnapshotData baseline2)
+    public void PredictDelta(uint tick, ref _UnitSnapshotData baseline1, ref _UnitSnapshotData baseline2)
     {
         var predictor = new GhostDeltaPredictor(tick, this.tick, baseline1.tick, baseline2.tick);
         HealthValue = predictor.PredictInt(HealthValue, baseline1.HealthValue, baseline2.HealthValue);
@@ -230,16 +186,9 @@ public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
         Child0TranslationValueX = predictor.PredictInt(Child0TranslationValueX, baseline1.Child0TranslationValueX, baseline2.Child0TranslationValueX);
         Child0TranslationValueY = predictor.PredictInt(Child0TranslationValueY, baseline1.Child0TranslationValueY, baseline2.Child0TranslationValueY);
         Child0TranslationValueZ = predictor.PredictInt(Child0TranslationValueZ, baseline1.Child0TranslationValueZ, baseline2.Child0TranslationValueZ);
-        Child1RotationValueX = predictor.PredictInt(Child1RotationValueX, baseline1.Child1RotationValueX, baseline2.Child1RotationValueX);
-        Child1RotationValueY = predictor.PredictInt(Child1RotationValueY, baseline1.Child1RotationValueY, baseline2.Child1RotationValueY);
-        Child1RotationValueZ = predictor.PredictInt(Child1RotationValueZ, baseline1.Child1RotationValueZ, baseline2.Child1RotationValueZ);
-        Child1RotationValueW = predictor.PredictInt(Child1RotationValueW, baseline1.Child1RotationValueW, baseline2.Child1RotationValueW);
-        Child1TranslationValueX = predictor.PredictInt(Child1TranslationValueX, baseline1.Child1TranslationValueX, baseline2.Child1TranslationValueX);
-        Child1TranslationValueY = predictor.PredictInt(Child1TranslationValueY, baseline1.Child1TranslationValueY, baseline2.Child1TranslationValueY);
-        Child1TranslationValueZ = predictor.PredictInt(Child1TranslationValueZ, baseline1.Child1TranslationValueZ, baseline2.Child1TranslationValueZ);
     }
 
-    public void Serialize(int networkId, ref ACivilianSnapshotData baseline, ref DataStreamWriter writer, NetworkCompressionModel compressionModel)
+    public void Serialize(int networkId, ref _UnitSnapshotData baseline, ref DataStreamWriter writer, NetworkCompressionModel compressionModel)
     {
         changeMask0 = (HealthValue != baseline.HealthValue) ? 1u : 0;
         changeMask0 |= (PlayerUnitPlayerId != baseline.PlayerUnitPlayerId) ? (1u<<1) : 0;
@@ -259,13 +208,6 @@ public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
         changeMask0 |= (Child0TranslationValueX != baseline.Child0TranslationValueX ||
                                            Child0TranslationValueY != baseline.Child0TranslationValueY ||
                                            Child0TranslationValueZ != baseline.Child0TranslationValueZ) ? (1u<<7) : 0;
-        changeMask0 |= (Child1RotationValueX != baseline.Child1RotationValueX ||
-                                           Child1RotationValueY != baseline.Child1RotationValueY ||
-                                           Child1RotationValueZ != baseline.Child1RotationValueZ ||
-                                           Child1RotationValueW != baseline.Child1RotationValueW) ? (1u<<8) : 0;
-        changeMask0 |= (Child1TranslationValueX != baseline.Child1TranslationValueX ||
-                                           Child1TranslationValueY != baseline.Child1TranslationValueY ||
-                                           Child1TranslationValueZ != baseline.Child1TranslationValueZ) ? (1u<<9) : 0;
         writer.WritePackedUIntDelta(changeMask0, baseline.changeMask0, compressionModel);
         if ((changeMask0 & (1 << 0)) != 0)
             writer.WritePackedIntDelta(HealthValue, baseline.HealthValue, compressionModel);
@@ -301,22 +243,9 @@ public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
             writer.WritePackedIntDelta(Child0TranslationValueY, baseline.Child0TranslationValueY, compressionModel);
             writer.WritePackedIntDelta(Child0TranslationValueZ, baseline.Child0TranslationValueZ, compressionModel);
         }
-        if ((changeMask0 & (1 << 8)) != 0)
-        {
-            writer.WritePackedIntDelta(Child1RotationValueX, baseline.Child1RotationValueX, compressionModel);
-            writer.WritePackedIntDelta(Child1RotationValueY, baseline.Child1RotationValueY, compressionModel);
-            writer.WritePackedIntDelta(Child1RotationValueZ, baseline.Child1RotationValueZ, compressionModel);
-            writer.WritePackedIntDelta(Child1RotationValueW, baseline.Child1RotationValueW, compressionModel);
-        }
-        if ((changeMask0 & (1 << 9)) != 0)
-        {
-            writer.WritePackedIntDelta(Child1TranslationValueX, baseline.Child1TranslationValueX, compressionModel);
-            writer.WritePackedIntDelta(Child1TranslationValueY, baseline.Child1TranslationValueY, compressionModel);
-            writer.WritePackedIntDelta(Child1TranslationValueZ, baseline.Child1TranslationValueZ, compressionModel);
-        }
     }
 
-    public void Deserialize(uint tick, ref ACivilianSnapshotData baseline, ref DataStreamReader reader,
+    public void Deserialize(uint tick, ref _UnitSnapshotData baseline, ref DataStreamReader reader,
         NetworkCompressionModel compressionModel)
     {
         this.tick = tick;
@@ -389,40 +318,12 @@ public struct ACivilianSnapshotData : ISnapshotData<ACivilianSnapshotData>
             Child0TranslationValueY = baseline.Child0TranslationValueY;
             Child0TranslationValueZ = baseline.Child0TranslationValueZ;
         }
-        if ((changeMask0 & (1 << 8)) != 0)
-        {
-            Child1RotationValueX = reader.ReadPackedIntDelta(baseline.Child1RotationValueX, compressionModel);
-            Child1RotationValueY = reader.ReadPackedIntDelta(baseline.Child1RotationValueY, compressionModel);
-            Child1RotationValueZ = reader.ReadPackedIntDelta(baseline.Child1RotationValueZ, compressionModel);
-            Child1RotationValueW = reader.ReadPackedIntDelta(baseline.Child1RotationValueW, compressionModel);
-        }
-        else
-        {
-            Child1RotationValueX = baseline.Child1RotationValueX;
-            Child1RotationValueY = baseline.Child1RotationValueY;
-            Child1RotationValueZ = baseline.Child1RotationValueZ;
-            Child1RotationValueW = baseline.Child1RotationValueW;
-        }
-        if ((changeMask0 & (1 << 9)) != 0)
-        {
-            Child1TranslationValueX = reader.ReadPackedIntDelta(baseline.Child1TranslationValueX, compressionModel);
-            Child1TranslationValueY = reader.ReadPackedIntDelta(baseline.Child1TranslationValueY, compressionModel);
-            Child1TranslationValueZ = reader.ReadPackedIntDelta(baseline.Child1TranslationValueZ, compressionModel);
-        }
-        else
-        {
-            Child1TranslationValueX = baseline.Child1TranslationValueX;
-            Child1TranslationValueY = baseline.Child1TranslationValueY;
-            Child1TranslationValueZ = baseline.Child1TranslationValueZ;
-        }
     }
-    public void Interpolate(ref ACivilianSnapshotData target, float factor)
+    public void Interpolate(ref _UnitSnapshotData target, float factor)
     {
         SetRotationValue(math.slerp(GetRotationValue(), target.GetRotationValue(), factor));
         SetTranslationValue(math.lerp(GetTranslationValue(), target.GetTranslationValue(), factor));
         SetChild0RotationValue(math.slerp(GetChild0RotationValue(), target.GetChild0RotationValue(), factor));
         SetChild0TranslationValue(math.lerp(GetChild0TranslationValue(), target.GetChild0TranslationValue(), factor));
-        SetChild1RotationValue(math.slerp(GetChild1RotationValue(), target.GetChild1RotationValue(), factor));
-        SetChild1TranslationValue(math.lerp(GetChild1TranslationValue(), target.GetChild1TranslationValue(), factor));
     }
 }

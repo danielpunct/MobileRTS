@@ -46,7 +46,6 @@ public class InputHandleSystem : ComponentSystem
 
             if (buildInput)
             {
-
                 var firstPlayer = player.PlayerId == 1;
                 var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
                 var ghostId = firstPlayer
@@ -59,7 +58,7 @@ public class InputHandleSystem : ComponentSystem
                 {
                     Value = new float3(input.buildX, 0, input.buildZ)
                 });
-
+                EntityManager.SetComponentData(building, new Health { Value = 100 });
             }
             else if (selectionInput)
             {

@@ -9,7 +9,7 @@ using Unity.Entities;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(GhostUpdateSystemGroup))]
-public class BArcherGhostUpdateSystem : JobComponentSystem
+public class _UnitGhostUpdateSystem : JobComponentSystem
 {
     [BurstCompile]
     struct UpdateInterpolatedJob : IJobChunk
@@ -22,7 +22,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
         public int ThreadIndex;
 #pragma warning restore 649
 #endif
-        [ReadOnly] public ArchetypeChunkBufferType<BArcherSnapshotData> ghostSnapshotDataType;
+        [ReadOnly] public ArchetypeChunkBufferType<_UnitSnapshotData> ghostSnapshotDataType;
         [ReadOnly] public ArchetypeChunkEntityType ghostEntityType;
         public ArchetypeChunkComponentType<Health> ghostHealthType;
         public ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
@@ -61,7 +61,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                         minMaxSnapshotTick[minMaxOffset + 1] = latestTick;
                 }
 #endif
-                BArcherSnapshotData snapshotData;
+                _UnitSnapshotData snapshotData;
                 snapshot.GetDataAtTick(targetTick, targetTickFraction, out snapshotData);
 
                 var ghostHealth = ghostHealthArray[entityIndex];
@@ -71,12 +71,6 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 var ghostTranslation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value];
                 var ghostChild0Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
                 var ghostChild0Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
-                var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
-                var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
-                var ghostChild2Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
-                var ghostChild2Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
-                var ghostChild3Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
-                var ghostChild3Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
                 ghostHealth.Value = snapshotData.GetHealthValue(deserializerState);
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostPlayerUnit.UnitId = snapshotData.GetPlayerUnitUnitId(deserializerState);
@@ -85,22 +79,10 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 ghostTranslation.Value = snapshotData.GetTranslationValue(deserializerState);
                 ghostChild0Rotation.Value = snapshotData.GetChild0RotationValue(deserializerState);
                 ghostChild0Translation.Value = snapshotData.GetChild0TranslationValue(deserializerState);
-                ghostChild1Rotation.Value = snapshotData.GetChild1RotationValue(deserializerState);
-                ghostChild1Translation.Value = snapshotData.GetChild1TranslationValue(deserializerState);
-                ghostChild2Rotation.Value = snapshotData.GetChild2RotationValue(deserializerState);
-                ghostChild2Translation.Value = snapshotData.GetChild2TranslationValue(deserializerState);
-                ghostChild3Rotation.Value = snapshotData.GetChild3RotationValue(deserializerState);
-                ghostChild3Translation.Value = snapshotData.GetChild3TranslationValue(deserializerState);
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostRotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostTranslation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Translation;
-                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Rotation;
-                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Translation;
-                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Rotation;
-                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Translation;
-                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Rotation;
-                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Translation;
                 ghostHealthArray[entityIndex] = ghostHealth;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
                 ghostUnitSelectionStateArray[entityIndex] = ghostUnitSelectionState;
@@ -119,7 +101,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
         public int ThreadIndex;
 #pragma warning restore 649
         [NativeDisableParallelForRestriction] public NativeArray<uint> minPredictedTick;
-        [ReadOnly] public ArchetypeChunkBufferType<BArcherSnapshotData> ghostSnapshotDataType;
+        [ReadOnly] public ArchetypeChunkBufferType<_UnitSnapshotData> ghostSnapshotDataType;
         [ReadOnly] public ArchetypeChunkEntityType ghostEntityType;
         public ArchetypeChunkComponentType<PredictedGhostComponent> predictedGhostComponentType;
         public ArchetypeChunkComponentType<Health> ghostHealthType;
@@ -159,7 +141,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                         minMaxSnapshotTick[minMaxOffset + 1] = latestTick;
                 }
 #endif
-                BArcherSnapshotData snapshotData;
+                _UnitSnapshotData snapshotData;
                 snapshot.GetDataAtTick(targetTick, out snapshotData);
 
                 var predictedData = predictedGhostComponentArray[entityIndex];
@@ -181,12 +163,6 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 var ghostTranslation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value];
                 var ghostChild0Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
                 var ghostChild0Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value];
-                var ghostChild1Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
-                var ghostChild1Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value];
-                var ghostChild2Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
-                var ghostChild2Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value];
-                var ghostChild3Rotation = ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
-                var ghostChild3Translation = ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value];
                 ghostHealth.Value = snapshotData.GetHealthValue(deserializerState);
                 ghostPlayerUnit.PlayerId = snapshotData.GetPlayerUnitPlayerId(deserializerState);
                 ghostPlayerUnit.UnitId = snapshotData.GetPlayerUnitUnitId(deserializerState);
@@ -195,22 +171,10 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 ghostTranslation.Value = snapshotData.GetTranslationValue(deserializerState);
                 ghostChild0Rotation.Value = snapshotData.GetChild0RotationValue(deserializerState);
                 ghostChild0Translation.Value = snapshotData.GetChild0TranslationValue(deserializerState);
-                ghostChild1Rotation.Value = snapshotData.GetChild1RotationValue(deserializerState);
-                ghostChild1Translation.Value = snapshotData.GetChild1TranslationValue(deserializerState);
-                ghostChild2Rotation.Value = snapshotData.GetChild2RotationValue(deserializerState);
-                ghostChild2Translation.Value = snapshotData.GetChild2TranslationValue(deserializerState);
-                ghostChild3Rotation.Value = snapshotData.GetChild3RotationValue(deserializerState);
-                ghostChild3Translation.Value = snapshotData.GetChild3TranslationValue(deserializerState);
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostRotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][0].Value] = ghostTranslation;
                 ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Rotation;
                 ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][1].Value] = ghostChild0Translation;
-                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Rotation;
-                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][2].Value] = ghostChild1Translation;
-                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Rotation;
-                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][3].Value] = ghostChild2Translation;
-                ghostRotationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Rotation;
-                ghostTranslationFromEntity[ghostLinkedEntityGroupArray[entityIndex][4].Value] = ghostChild3Translation;
                 ghostHealthArray[entityIndex] = ghostHealth;
                 ghostPlayerUnitArray[entityIndex] = ghostPlayerUnit;
                 ghostUnitSelectionStateArray[entityIndex] = ghostUnitSelectionState;
@@ -239,7 +203,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
         m_interpolatedQuery = GetEntityQuery(new EntityQueryDesc
         {
             All = new []{
-                ComponentType.ReadWrite<BArcherSnapshotData>(),
+                ComponentType.ReadWrite<_UnitSnapshotData>(),
                 ComponentType.ReadOnly<GhostComponent>(),
                 ComponentType.ReadWrite<Health>(),
                 ComponentType.ReadWrite<PlayerUnit>(),
@@ -251,7 +215,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
         m_predictedQuery = GetEntityQuery(new EntityQueryDesc
         {
             All = new []{
-                ComponentType.ReadOnly<BArcherSnapshotData>(),
+                ComponentType.ReadOnly<_UnitSnapshotData>(),
                 ComponentType.ReadOnly<GhostComponent>(),
                 ComponentType.ReadOnly<PredictedGhostComponent>(),
                 ComponentType.ReadWrite<Health>(),
@@ -260,7 +224,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 ComponentType.ReadOnly<LinkedEntityGroup>(),
             }
         });
-        RequireForUpdate(GetEntityQuery(ComponentType.ReadWrite<BArcherSnapshotData>(),
+        RequireForUpdate(GetEntityQuery(ComponentType.ReadWrite<_UnitSnapshotData>(),
             ComponentType.ReadOnly<GhostComponent>()));
     }
     protected override JobHandle OnUpdate(JobHandle inputDeps)
@@ -274,7 +238,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
                 minMaxSnapshotTick = m_ghostMinMaxSnapshotTick,
 #endif
                 minPredictedTick = m_GhostPredictionSystemGroup.OldestPredictedTick,
-                ghostSnapshotDataType = GetArchetypeChunkBufferType<BArcherSnapshotData>(true),
+                ghostSnapshotDataType = GetArchetypeChunkBufferType<_UnitSnapshotData>(true),
                 ghostEntityType = GetArchetypeChunkEntityType(),
                 predictedGhostComponentType = GetArchetypeChunkComponentType<PredictedGhostComponent>(),
                 ghostHealthType = GetArchetypeChunkComponentType<Health>(),
@@ -301,7 +265,7 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 minMaxSnapshotTick = m_ghostMinMaxSnapshotTick,
 #endif
-                ghostSnapshotDataType = GetArchetypeChunkBufferType<BArcherSnapshotData>(true),
+                ghostSnapshotDataType = GetArchetypeChunkBufferType<_UnitSnapshotData>(true),
                 ghostEntityType = GetArchetypeChunkEntityType(),
                 ghostHealthType = GetArchetypeChunkComponentType<Health>(),
                 ghostPlayerUnitType = GetArchetypeChunkComponentType<PlayerUnit>(),
@@ -317,11 +281,11 @@ public class BArcherGhostUpdateSystem : JobComponentSystem
         return inputDeps;
     }
 }
-public partial class BArcherGhostSpawnSystem : DefaultGhostSpawnSystem<BArcherSnapshotData>
+public partial class _UnitGhostSpawnSystem : DefaultGhostSpawnSystem<_UnitSnapshotData>
 {
     struct SetPredictedDefault : IJobParallelFor
     {
-        [ReadOnly] public NativeArray<BArcherSnapshotData> snapshots;
+        [ReadOnly] public NativeArray<_UnitSnapshotData> snapshots;
         public NativeArray<int> predictionMask;
         [ReadOnly][DeallocateOnJobCompletion] public NativeArray<NetworkIdComponent> localPlayerId;
         public void Execute(int index)
@@ -330,7 +294,7 @@ public partial class BArcherGhostSpawnSystem : DefaultGhostSpawnSystem<BArcherSn
                 predictionMask[index] = 1;
         }
     }
-    protected override JobHandle SetPredictedGhostDefaults(NativeArray<BArcherSnapshotData> snapshots, NativeArray<int> predictionMask, JobHandle inputDeps)
+    protected override JobHandle SetPredictedGhostDefaults(NativeArray<_UnitSnapshotData> snapshots, NativeArray<int> predictionMask, JobHandle inputDeps)
     {
         JobHandle playerHandle;
         var job = new SetPredictedDefault

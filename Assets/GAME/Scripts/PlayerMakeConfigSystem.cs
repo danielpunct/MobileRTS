@@ -49,6 +49,7 @@ public class PlayerMakeConfigSystem : ComponentSystem
             moveSpeed = 5f,
             move = true
         });
+        PostUpdateCommands.SetComponent(unit, new Health { Value = 30 });
     }
 
     void SpawnArcher(int playerId, bool firstPlayer, Transform spawnPoint)
@@ -77,6 +78,7 @@ public class PlayerMakeConfigSystem : ComponentSystem
             AttackRadius = 50,
             AttackedAt = 0
         });
+        PostUpdateCommands.SetComponent(unit, new Health { Value = 50 });
     } 
 
     Entity GetPrefab(int ghostId)

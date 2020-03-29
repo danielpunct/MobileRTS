@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -7984039325800818501}
   - component: {fileID: -8005883129247030839}
   - component: {fileID: 7418626261982565687}
+  - component: {fileID: 9111907965812468443}
   m_Layer: 0
   m_Name: A_Barracks
   m_TagString: Untagged
@@ -56,6 +57,17 @@ MonoBehaviour:
   Importance: 1
   PredictingPlayerNetworkId: 
   Components:
+  - name: Health
+    interpolatedClient: 1
+    predictedClient: 1
+    server: 1
+    sendDataTo: 0
+    fields:
+    - name: Value
+      quantization: 100
+      interpolate: 0
+    manualFieldList: 0
+    entityIndex: 0
   - name: PlayerUnit
     interpolatedClient: 1
     predictedClient: 1
@@ -303,6 +315,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsSelected: 0
+--- !u!114 &9111907965812468443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327965667345427751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef83aeb71dd071478307699fff8e269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
 --- !u!1 &4518680737658348380
 GameObject:
   m_ObjectHideFlags: 0

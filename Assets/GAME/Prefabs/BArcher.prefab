@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7247393083644395040}
   - component: {fileID: 5537858761908730125}
   - component: {fileID: 2236074890580784113}
+  - component: {fileID: 4697884879035805642}
   m_Layer: 0
   m_Name: BArcher
   m_TagString: Untagged
@@ -72,6 +73,17 @@ MonoBehaviour:
   Importance: 1
   PredictingPlayerNetworkId: PlayerUnit.PlayerId
   Components:
+  - name: Health
+    interpolatedClient: 1
+    predictedClient: 1
+    server: 1
+    sendDataTo: 0
+    fields:
+    - name: Value
+      quantization: 100
+      interpolate: 0
+    manualFieldList: 0
+    entityIndex: 0
   - name: PlayerUnit
     interpolatedClient: 1
     predictedClient: 1
@@ -491,6 +503,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsSelected: 0
+--- !u!114 &4697884879035805642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352831042647036183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef83aeb71dd071478307699fff8e269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
 --- !u!1 &6604126585888185941
 GameObject:
   m_ObjectHideFlags: 0

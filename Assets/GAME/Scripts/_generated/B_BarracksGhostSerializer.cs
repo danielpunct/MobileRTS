@@ -8,6 +8,7 @@ using Unity.Rendering;
 
 public struct B_BarracksGhostSerializer : IGhostSerializer<B_BarracksSnapshotData>
 {
+    private ComponentType componentTypeHealth;
     private ComponentType componentTypePlayerUnit;
     private ComponentType componentTypeUnitSelectionState;
     private ComponentType componentTypeLocalToWorld;
@@ -15,6 +16,7 @@ public struct B_BarracksGhostSerializer : IGhostSerializer<B_BarracksSnapshotDat
     private ComponentType componentTypeTranslation;
     private ComponentType componentTypeLinkedEntityGroup;
     // FIXME: These disable safety since all serializers have an instance of the same type - causing aliasing. Should be fixed in a cleaner way
+    [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<Health> ghostHealthType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<PlayerUnit> ghostPlayerUnitType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<UnitSelectionState> ghostUnitSelectionStateType;
     [NativeDisableContainerSafetyRestriction][ReadOnly] private ArchetypeChunkComponentType<Rotation> ghostRotationType;
@@ -34,12 +36,14 @@ public struct B_BarracksGhostSerializer : IGhostSerializer<B_BarracksSnapshotDat
     public int SnapshotSize => UnsafeUtility.SizeOf<B_BarracksSnapshotData>();
     public void BeginSerialize(ComponentSystemBase system)
     {
+        componentTypeHealth = ComponentType.ReadWrite<Health>();
         componentTypePlayerUnit = ComponentType.ReadWrite<PlayerUnit>();
         componentTypeUnitSelectionState = ComponentType.ReadWrite<UnitSelectionState>();
         componentTypeLocalToWorld = ComponentType.ReadWrite<LocalToWorld>();
         componentTypeRotation = ComponentType.ReadWrite<Rotation>();
         componentTypeTranslation = ComponentType.ReadWrite<Translation>();
         componentTypeLinkedEntityGroup = ComponentType.ReadWrite<LinkedEntityGroup>();
+        ghostHealthType = system.GetArchetypeChunkComponentType<Health>(true);
         ghostPlayerUnitType = system.GetArchetypeChunkComponentType<PlayerUnit>(true);
         ghostUnitSelectionStateType = system.GetArchetypeChunkComponentType<UnitSelectionState>(true);
         ghostRotationType = system.GetArchetypeChunkComponentType<Rotation>(true);
@@ -54,11 +58,13 @@ public struct B_BarracksGhostSerializer : IGhostSerializer<B_BarracksSnapshotDat
     public void CopyToSnapshot(ArchetypeChunk chunk, int ent, uint tick, ref B_BarracksSnapshotData snapshot, GhostSerializerState serializerState)
     {
         snapshot.tick = tick;
+        var chunkDataHealth = chunk.GetNativeArray(ghostHealthType);
         var chunkDataPlayerUnit = chunk.GetNativeArray(ghostPlayerUnitType);
         var chunkDataUnitSelectionState = chunk.GetNativeArray(ghostUnitSelectionStateType);
         var chunkDataRotation = chunk.GetNativeArray(ghostRotationType);
         var chunkDataTranslation = chunk.GetNativeArray(ghostTranslationType);
         var chunkDataLinkedEntityGroup = chunk.GetBufferAccessor(ghostLinkedEntityGroupType);
+        snapshot.SetHealthValue(chunkDataHealth[ent].Value, serializerState);
         snapshot.SetPlayerUnitPlayerId(chunkDataPlayerUnit[ent].PlayerId, serializerState);
         snapshot.SetPlayerUnitUnitId(chunkDataPlayerUnit[ent].UnitId, serializerState);
         snapshot.SetUnitSelectionStateIsSelected(chunkDataUnitSelectionState[ent].IsSelected, serializerState);

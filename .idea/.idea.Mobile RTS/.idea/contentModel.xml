@@ -7,75 +7,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="GAME" t="Include">
-          <e p="_Client Only" t="Include">
-            <e p="Scripts" t="Include">
-              <e p="BuildingCardHolder.cs" t="Include" />
-              <e p="GameReferences.cs" t="Include" />
-              <e p="MapInteractions.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Scenes" t="Include">
-            <e p="GameSetup.cs" t="Include" />
-          </e>
-          <e p="Scripts" t="Include">
-            <e p="_generated" t="Include">
-              <e p="A_BarracksGhostSerializer.cs" t="Include" />
-              <e p="A_BarracksGhostUpdateSystem.cs" t="Include" />
-              <e p="A_BarracksSnapshotData.cs" t="Include" />
-              <e p="AArcherGhostSerializer.cs" t="Include" />
-              <e p="AArcherGhostUpdateSystem.cs" t="Include" />
-              <e p="AArcherSnapshotData.cs" t="Include" />
-              <e p="ACivilianGhostSerializer.cs" t="Include" />
-              <e p="ACivilianGhostUpdateSystem.cs" t="Include" />
-              <e p="ACivilianSnapshotData.cs" t="Include" />
-              <e p="ArrowGhostSerializer.cs" t="Include" />
-              <e p="ArrowGhostUpdateSystem.cs" t="Include" />
-              <e p="ArrowSnapshotData.cs" t="Include" />
-              <e p="B_BarracksGhostSerializer.cs" t="Include" />
-              <e p="B_BarracksGhostUpdateSystem.cs" t="Include" />
-              <e p="B_BarracksSnapshotData.cs" t="Include" />
-              <e p="BArcherGhostSerializer.cs" t="Include" />
-              <e p="BArcherGhostUpdateSystem.cs" t="Include" />
-              <e p="BArcherSnapshotData.cs" t="Include" />
-              <e p="BCivilianGhostSerializer.cs" t="Include" />
-              <e p="BCivilianGhostUpdateSystem.cs" t="Include" />
-              <e p="BCivilianSnapshotData.cs" t="Include" />
-              <e p="GC" t="Include">
-                <e p="GhostDeserializerCollection.cs" t="Include" />
-                <e p="GhostSerializerCollection.cs" t="Include" />
-              </e>
-              <e p="PlayerGhostSerializer.cs" t="Include" />
-              <e p="PlayerGhostUpdateSystem.cs" t="Include" />
-              <e p="PlayerSnapshotData.cs" t="Include" />
-              <e p="QuadGhostSerializer.cs" t="Include" />
-              <e p="QuadGhostUpdateSystem.cs" t="Include" />
-              <e p="QuadSnapshotData.cs" t="Include" />
-              <e p="UnitGhostSerializer.cs" t="Include" />
-              <e p="UnitGhostUpdateSystem.cs" t="Include" />
-              <e p="UnitSnapshotData.cs" t="Include" />
-            </e>
-            <e p="ArcMoveSystem.cs" t="Include" />
-            <e p="BeforeServerPredictionSystem.cs" t="Include" />
-            <e p="BuildingProduceSystem.cs" t="Include" />
-            <e p="Game.cs" t="Include" />
-            <e p="Health.cs" t="Include" />
-            <e p="InputHandleSystem.cs" t="Include" />
-            <e p="Player.cs" t="Include" />
-            <e p="PlayerBullet.cs" t="Include" />
-            <e p="PlayerInput.cs" t="Include" />
-            <e p="PlayerMakeConfigSystem.cs" t="Include" />
-            <e p="PlayerUnit.cs" t="Include" />
-            <e p="ServerReferences.cs" t="Include" />
-            <e p="UnitAttackSystem.cs" t="Include" />
-            <e p="UnitHitSystem.cs" t="Include" />
-            <e p="UnitSelectionState.cs" t="Include" />
-            <e p="UnitSelectionVisuals.cs" t="Include" />
-            <e p="UnitsMoveSystem.cs" t="Include" />
-            <e p="UnitsSelectionSystem.cs" t="Include" />
-          </e>
-        </e>
-        <e p="Packs" t="Include">
+        <e p="_Packs" t="Include">
           <e p="Gamelogic" t="Include">
             <e p="Extensions" t="Include">
               <e p="Examples" t="Include">
@@ -336,6 +268,80 @@
                 <e p="LeanTouch.cs" t="Include" />
               </e>
             </e>
+          </e>
+        </e>
+        <e p="ENVIRONMENT" t="Include">
+          <e p="Editor" t="Include">
+            <e p="BuildServerCommand.cs" t="Include" />
+          </e>
+          <e p="GameLiftServerController.cs" t="Include" />
+        </e>
+        <e p="GAME" t="Include">
+          <e p="_Client Only" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="BuildingCardHolder.cs" t="Include" />
+              <e p="GameReferences.cs" t="Include" />
+              <e p="MapInteractions.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Scenes" t="Include">
+            <e p="GameSetup.cs" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="_generated" t="Include">
+              <e p="A_BarracksGhostSerializer.cs" t="Include" />
+              <e p="A_BarracksGhostUpdateSystem.cs" t="Include" />
+              <e p="A_BarracksSnapshotData.cs" t="Include" />
+              <e p="AArcherGhostSerializer.cs" t="Include" />
+              <e p="AArcherGhostUpdateSystem.cs" t="Include" />
+              <e p="AArcherSnapshotData.cs" t="Include" />
+              <e p="ACivilianGhostSerializer.cs" t="Include" />
+              <e p="ACivilianGhostUpdateSystem.cs" t="Include" />
+              <e p="ACivilianSnapshotData.cs" t="Include" />
+              <e p="ArrowGhostSerializer.cs" t="Include" />
+              <e p="ArrowGhostUpdateSystem.cs" t="Include" />
+              <e p="ArrowSnapshotData.cs" t="Include" />
+              <e p="B_BarracksGhostSerializer.cs" t="Include" />
+              <e p="B_BarracksGhostUpdateSystem.cs" t="Include" />
+              <e p="B_BarracksSnapshotData.cs" t="Include" />
+              <e p="BArcherGhostSerializer.cs" t="Include" />
+              <e p="BArcherGhostUpdateSystem.cs" t="Include" />
+              <e p="BArcherSnapshotData.cs" t="Include" />
+              <e p="BCivilianGhostSerializer.cs" t="Include" />
+              <e p="BCivilianGhostUpdateSystem.cs" t="Include" />
+              <e p="BCivilianSnapshotData.cs" t="Include" />
+              <e p="GC" t="Include">
+                <e p="GhostDeserializerCollection.cs" t="Include" />
+                <e p="GhostSerializerCollection.cs" t="Include" />
+              </e>
+              <e p="PlayerGhostSerializer.cs" t="Include" />
+              <e p="PlayerGhostUpdateSystem.cs" t="Include" />
+              <e p="PlayerSnapshotData.cs" t="Include" />
+              <e p="QuadGhostSerializer.cs" t="Include" />
+              <e p="QuadGhostUpdateSystem.cs" t="Include" />
+              <e p="QuadSnapshotData.cs" t="Include" />
+              <e p="UnitGhostSerializer.cs" t="Include" />
+              <e p="UnitGhostUpdateSystem.cs" t="Include" />
+              <e p="UnitSnapshotData.cs" t="Include" />
+            </e>
+            <e p="ArcMoveSystem.cs" t="Include" />
+            <e p="BeforeServerPredictionSystem.cs" t="Include" />
+            <e p="BuildingProduceSystem.cs" t="Include" />
+            <e p="Game.cs" t="Include" />
+            <e p="Health.cs" t="Include" />
+            <e p="InputHandleSystem.cs" t="Include" />
+            <e p="Player.cs" t="Include" />
+            <e p="PlayerBullet.cs" t="Include" />
+            <e p="PlayerInput.cs" t="Include" />
+            <e p="PlayerMakeConfigSystem.cs" t="Include" />
+            <e p="PlayerUnit.cs" t="Include" />
+            <e p="ServerReferences.cs" t="Include" />
+            <e p="UnitAttackSystem.cs" t="Include" />
+            <e p="UnitHitSystem.cs" t="Include" />
+            <e p="UnitSelectionState.cs" t="Include" />
+            <e p="UnitSelectionVisuals.cs" t="Include" />
+            <e p="UnitsMoveSystem.cs" t="Include" />
+            <e p="UnitsSelectionSystem.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">

@@ -10,6 +10,8 @@ public class ServerReferences : MonoBehaviour
         Instance = this;
     }
 
+    //[SerializeField] GameLiftServerController GameLiftServer;
+
     public Plane raycastPlane = new Plane(Vector3.up, Vector3.zero);
 
     public Transform spawnA;

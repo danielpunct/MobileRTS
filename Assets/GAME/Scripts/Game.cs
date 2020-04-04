@@ -14,6 +14,7 @@ public class Game : ComponentSystem
     struct InitGameComponent : IComponentData
     {
     }
+
     protected override void OnCreate()
     {
         RequireSingletonForUpdate<InitGameComponent>();
@@ -30,7 +31,8 @@ public class Game : ComponentSystem
         foreach (var world in World.All)
         {
             var network = world.GetExistingSystem<NetworkStreamReceiveSystem>();
-#if UNITY_ANDROID
+            
+#if !SERVER
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
                 // Client worlds automatically connect to local network
@@ -39,7 +41,9 @@ public class Game : ComponentSystem
                     network.Connect(ep);
                 }
             }
-#else
+#endif
+
+#if DEBUG_CLIENT // local build for test in same wifi
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
                 // Client worlds automatically connect to localhost
@@ -48,9 +52,11 @@ public class Game : ComponentSystem
                 network.Connect(ep);
             }
 #endif
+            break;
 
-#if UNITY_EDITOR
-            else if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
+
+#if UNITY_EDITOR || SERVER
+            if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
             {
                 // Server world automatically listen for connections from any host
                 NetworkEndPoint ep = NetworkEndPoint.AnyIpv4;
@@ -62,12 +68,14 @@ public class Game : ComponentSystem
     }
 }
 
+
 // RPC request from client to server for game to go "in game" and send snapshots / inputs
 [BurstCompile]
 public struct GoInGameRequest : IRpcCommand
 {
     // Unused integer for demonstration
     public int value;
+
     public void Deserialize(ref DataStreamReader reader)
     {
         value = reader.ReadInt();
@@ -77,6 +85,7 @@ public struct GoInGameRequest : IRpcCommand
     {
         writer.WriteInt(value);
     }
+
     [BurstCompile]
     private static void InvokeExecute(ref RpcExecutor.Parameters parameters)
     {
@@ -112,7 +121,7 @@ public class GoInGameClientSystem : ComponentSystem
             PostUpdateCommands.AddComponent<NetworkStreamInGame>(ent);
             var req = PostUpdateCommands.CreateEntity();
             PostUpdateCommands.AddComponent<GoInGameRequest>(req);
-            PostUpdateCommands.AddComponent(req, new SendRpcCommandRequestComponent { TargetConnection = ent });
+            PostUpdateCommands.AddComponent(req, new SendRpcCommandRequestComponent {TargetConnection = ent});
         });
     }
 }
@@ -124,30 +133,36 @@ public class GoInGameServerSystem : ComponentSystem
     protected override void OnCreate()
     {
         RequireSingletonForUpdate<EnableMobileRTSGhostSendSystemComponent>();
-
     }
 
     protected override void OnUpdate()
     {
-        Entities.WithNone<SendRpcCommandRequestComponent>().ForEach((Entity reqEnt, ref GoInGameRequest req, ref ReceiveRpcCommandRequestComponent reqSrc) =>
-        {
-            PostUpdateCommands.AddComponent<NetworkStreamInGame>(reqSrc.SourceConnection);
-            Debug.Log(string.Format("Server setting connection {0} to in game", EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value));
+        Entities.WithNone<SendRpcCommandRequestComponent>().ForEach(
+            (Entity reqEnt, ref GoInGameRequest req, ref ReceiveRpcCommandRequestComponent reqSrc) =>
+            {
+                PostUpdateCommands.AddComponent<NetworkStreamInGame>(reqSrc.SourceConnection);
+                Debug.Log(string.Format("Server setting connection {0} to in game",
+                    EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value));
 
 
-            var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
-            var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<PlayerSnapshotData>();
-            var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId].Value;
-            var player = EntityManager.Instantiate(prefab);
-            EntityManager.SetComponentData(player, new Player { PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value });
+                var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
+                var ghostId = MobileRTSGhostSerializerCollection.FindGhostType<PlayerSnapshotData>();
+                var prefab = EntityManager.GetBuffer<GhostPrefabBuffer>(ghostCollection.serverPrefabs)[ghostId]
+                    .Value;
+                var player = EntityManager.Instantiate(prefab);
+                EntityManager.SetComponentData(player,
+                    new Player
+                    {
+                        PlayerId = EntityManager.GetComponentData<NetworkIdComponent>(reqSrc.SourceConnection).Value
+                    });
 
-            PostUpdateCommands.AddBuffer<PlayerInput>(player);
-            PostUpdateCommands.SetComponent(reqSrc.SourceConnection, new CommandTargetComponent { targetEntity = player });
+                PostUpdateCommands.AddBuffer<PlayerInput>(player);
+                PostUpdateCommands.SetComponent(reqSrc.SourceConnection,
+                    new CommandTargetComponent {targetEntity = player});
 
-            PostUpdateCommands.AddComponent(player, new PlayerConfig { Civilians = 2, Archers = 1 });
+                PostUpdateCommands.AddComponent(player, new PlayerConfig {Civilians = 2, Archers = 1});
 
-            PostUpdateCommands.DestroyEntity(reqEnt);
-        });
+                PostUpdateCommands.DestroyEntity(reqEnt);
+            });
     }
 }
-

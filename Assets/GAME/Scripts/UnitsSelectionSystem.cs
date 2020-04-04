@@ -39,7 +39,6 @@ public class UnitsSelectionSystem : JobComponentSystem
              }
              else
              {
-                 
                  ECB.RemoveComponent<Disabled>(entity);
                  selection = playerUnit;
              }

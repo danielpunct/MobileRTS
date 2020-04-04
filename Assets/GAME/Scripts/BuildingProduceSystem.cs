@@ -29,7 +29,7 @@ public class BuildingProduceSystem : JobComponentSystem
         {
             var produced = time - archery.ProducedAt < 10;
 
-            if (produced)
+            if (produced || archery.Units ==0)
             {
                 return;
             }
@@ -38,6 +38,7 @@ public class BuildingProduceSystem : JobComponentSystem
             SpawnArcher(ECB, playerUnit.PlayerId, firstPlayer, translation.Value + new float3(5, 0, 0));
 
             archery.ProducedAt = time;
+            archery.Units--;
 
         }).Run();
         
@@ -89,8 +90,8 @@ public class BuildingProduceSystem : JobComponentSystem
     }
 }
 
-
 public struct Archery : IComponentData
 {
     public float ProducedAt;
+    public int Units;
 }

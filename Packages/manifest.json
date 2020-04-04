@@ -4,6 +4,7 @@
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.collections": "0.7.0-preview.2",
     "com.unity.entities": "0.8.0-preview.8",
+    "com.unity.ide.rider": "1.1.4",
     "com.unity.ide.vscode": "1.1.4",
     "com.unity.netcode": "0.1.0-preview.6",
     "com.unity.physics": "0.3.0-preview.1",

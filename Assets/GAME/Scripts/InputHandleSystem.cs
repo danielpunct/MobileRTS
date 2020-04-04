@@ -47,6 +47,7 @@ public class InputHandleSystem : ComponentSystem
 
             if (buildInput)
             {
+                Debug.Log("buidl");
                 var firstPlayer = player.PlayerId == 1;
                 var ghostCollection = GetSingleton<GhostPrefabCollectionComponent>();
                 var ghostId = firstPlayer
@@ -62,7 +63,8 @@ public class InputHandleSystem : ComponentSystem
                 EntityManager.SetComponentData(building, new Health { Value = 100 });
                 EntityManager.AddComponentData(building, new Archery
                 {
-                    ProducedAt = time
+                    ProducedAt = time,
+                    Units = 15
                 });
 
                 input.buildX = input.buildZ = 0;

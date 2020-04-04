@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a267beb90bc414f9ecb94bdb54c6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameLiftServer: {fileID: 0}
+  ouptup: {fileID: 1259832527}
   spawnA: {fileID: 1546255361}
   spawnB: {fileID: 339962030}
 --- !u!1 &1259832525
@@ -265,7 +265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: server
+  m_Text: '-'
 --- !u!222 &1259832528
 CanvasRenderer:
   m_ObjectHideFlags: 0

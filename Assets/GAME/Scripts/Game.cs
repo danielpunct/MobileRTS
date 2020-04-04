@@ -31,29 +31,24 @@ public class Game : ComponentSystem
         foreach (var world in World.All)
         {
             var network = world.GetExistingSystem<NetworkStreamReceiveSystem>();
-            
-#if !SERVER
+
+#if UNITY_EDITOR || !SERVER
             if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
             {
-                // Client worlds automatically connect to local network
+                // local build for test in same wifi
                 if (NetworkEndPoint.TryParse("192.168.1.129", 7979, out var ep))
                 {
                     network.Connect(ep);
                 }
+                else
+                {
+                    // Client worlds automatically connect to localhost
+                    ep = NetworkEndPoint.LoopbackIpv4;
+                    ep.Port = 7979;
+                    network.Connect(ep);
+                }
             }
 #endif
-
-#if DEBUG_CLIENT // local build for test in same wifi
-            if (world.GetExistingSystem<ClientSimulationSystemGroup>() != null)
-            {
-                // Client worlds automatically connect to localhost
-                NetworkEndPoint ep = NetworkEndPoint.LoopbackIpv4;
-                ep.Port = 7979;
-                network.Connect(ep);
-            }
-#endif
-            break;
-
 
 #if UNITY_EDITOR || SERVER
             if (world.GetExistingSystem<ServerSimulationSystemGroup>() != null)
@@ -64,6 +59,7 @@ public class Game : ComponentSystem
                 network.Listen(ep);
             }
 #endif
+
         }
     }
 }

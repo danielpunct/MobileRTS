@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BuildServerCommand : MonoBehaviour
 {
-    [MenuItem("Build/Build Server")]
+    [MenuItem("Build/Build and Run Server")]
     public static void MyBuildServer()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
@@ -33,7 +33,7 @@ public class BuildServerCommand : MonoBehaviour
     }
 
 
-    [MenuItem("Build/Build DemoClient")]
+    [MenuItem("Build/Build Demo Client | PC Local")]
     public static void MyBuildDemoClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
@@ -61,7 +61,7 @@ public class BuildServerCommand : MonoBehaviour
     
     
 
-    [MenuItem("Build/Build And Run Android WIFI Client")]
+    [MenuItem("Build/Build And Run Client | Android WIFI ")]
     public static void MyBuildAndroidDebugClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
@@ -69,7 +69,7 @@ public class BuildServerCommand : MonoBehaviour
         buildPlayerOptions.locationPathName = System.IO.Path.Combine("Build", "Wifi_Android_Client", "ClientBuild.apk");
         buildPlayerOptions.target = BuildTarget.Android;
         buildPlayerOptions.options = BuildOptions.AutoRunPlayer;
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone,
+        PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android,
             ProjectsBuildSymbols.DEBUG_CLIENT.ToString());
 
         BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);

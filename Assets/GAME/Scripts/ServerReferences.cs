@@ -11,7 +11,7 @@ public class ServerReferences : MonoBehaviour
         Instance = this;
     }
 
-    //[SerializeField] GameLiftServerController GameLiftServer;
+    [SerializeField] GameLiftServerController GameLiftServer;
 
     [SerializeField] Text ouptup;
     public Plane raycastPlane = new Plane(Vector3.up, Vector3.zero);

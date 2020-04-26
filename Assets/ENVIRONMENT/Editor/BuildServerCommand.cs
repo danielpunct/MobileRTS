@@ -33,7 +33,7 @@ public class BuildServerCommand : MonoBehaviour
     }
 
 
-    [MenuItem("Build/Build Demo Client | PC Local")]
+    [MenuItem("Build/Build and Run Client | PC Local")]
     public static void MyBuildDemoClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
@@ -61,7 +61,7 @@ public class BuildServerCommand : MonoBehaviour
     
     
 
-    [MenuItem("Build/Build And Run Client | Android WIFI ")]
+    [MenuItem("Build/Build and Run Client | Android WIFI ")]
     public static void MyBuildAndroidDebugClient()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
